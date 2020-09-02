@@ -7,9 +7,11 @@ public class PFileMenu extends JMenu {
 	public PFileMenu() {
 		// set attribute
 		this.setText(Constants.EMenuBar.FILE.getText());
-
-		JMenuItem newItem = new JMenuItem(Constants.EFileMenu.NEW.getText());
-		this.add(newItem);
+		
+		for(Constants.EFileMenu eFileMenu: Constants.EFileMenu.values()) {
+			JMenuItem menuItem = new JMenuItem(eFileMenu.getText());
+			this.add(menuItem);
+		}
 	}
 
 }

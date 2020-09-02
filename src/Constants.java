@@ -15,8 +15,8 @@ public class Constants {
 	}
 	
 	public enum EMenuBar{
-		FILE("File"),
-		EDIT("Edit");
+		FILE("파일"),
+		EDIT("편집");
 		
 		private String text;
 		
@@ -29,16 +29,32 @@ public class Constants {
 	}
 	
 	public enum EFileMenu{
-		NEW("New"),
-		OPEN("Open"),
-		SAVE("Save"),
-		SAVEAS("Save-As"),
-		PRINT("Print"),
-		EXIT("Exit");
+		NEW("생성"),
+		OPEN("열기"),
+		SAVE("저장"),
+		SAVEAS("다른이름으로 저장"),
+		PRINT("인쇄"),
+		EXIT("종료");
 		
 		private String text;
 		
 		private EFileMenu(String text) {
+			this.text = text;
+		}
+		public String getText() {
+			return this.text;
+		}
+	}
+	
+	public enum EEDITMenu{
+		COPY("복사"),
+		CUT("자르기"),
+		PASTE("붙여넣기"),
+		DELETE("지우기");
+		
+		private String text;
+		
+		private EEDITMenu(String text) {
 			this.text = text;
 		}
 		public String getText() {
