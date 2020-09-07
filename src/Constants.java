@@ -1,5 +1,3 @@
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
 
 public class Constants {
 	public enum EMainFrame{
@@ -48,7 +46,7 @@ public class Constants {
 		}
 	}
 	
-	public enum EEditMenu{
+	public enum EEDITMenu{
 		COPY("복사"),
 		CUT("자르기"),
 		PASTE("붙여넣기"),
@@ -56,34 +54,11 @@ public class Constants {
 		
 		private String text;
 		
-		private EEditMenu(String text) {
+		private EEDITMenu(String text) {
 			this.text = text;
 		}
 		public String getText() {
 			return this.text;
-		}
-	}
-	
-	public enum EToolButton{
-		APPLICATION("수강신청","images/Application.png"),
-		PUT("미리담기","images/Put.png"),
-		PERSONALINFO("개인정보","images/PersonalInfo.png"),
-		GRADE("성적","images/Grade.png");
-		
-		private String title;
-		private String src;
-		
-		private EToolButton(String title,String src) {
-			this.title = title;
-			this.src = src;
-		}
-		
-		public String getTitle() {
-			return this.title;
-		}
-		
-		public String getSrc() {
-			return this.src;
 		}
 	}
 

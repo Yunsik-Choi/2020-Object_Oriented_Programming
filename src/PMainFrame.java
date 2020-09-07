@@ -1,8 +1,6 @@
 import java.awt.BorderLayout;
-import java.awt.GridLayout;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 public class PMainFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
@@ -18,12 +16,12 @@ public class PMainFrame extends JFrame {
 		this.pMenuBar = new PMenuBar();
 		this.setJMenuBar(this.pMenuBar);
 		
-		this.setLayout(new GridLayout(2,1));
+		this.setLayout(new BorderLayout());
 		
 		this.pToolBar = new PToolBar();
-		this.add(this.pToolBar);
+		this.add(this.pToolBar,BorderLayout.NORTH);
 		
 		this.pMainPanel = new PMainPanel();
-		this.add(this.pMainPanel);
+		this.add(this.pMainPanel,BorderLayout.CENTER);
 	}
 }
