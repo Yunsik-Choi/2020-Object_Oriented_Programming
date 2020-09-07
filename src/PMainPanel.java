@@ -9,6 +9,8 @@ public class PMainPanel extends JPanel {
 	private PContentPanel pContentPanel;
 	private PFooterPanel pFooterPanel;
 	
+	private String userName;
+	
 	public PMainPanel() {
 		this.setLayout(new BorderLayout());
 		
@@ -20,6 +22,10 @@ public class PMainPanel extends JPanel {
 		
 		this.pFooterPanel = new PFooterPanel();
 		this.add(this.pFooterPanel, BorderLayout.SOUTH);
+	}
+	
+	public void setUserName(String name) {
+		this.pHeaderPanel.setUserName(name);
 	}
 
 }

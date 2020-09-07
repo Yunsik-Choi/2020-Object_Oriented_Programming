@@ -25,7 +25,9 @@ public class PMainFrame extends JFrame {
 		this.pMainPanel = new PMainPanel();
 		this.add(this.pMainPanel,BorderLayout.CENTER);
 		
-		this.pLoginDialog = new PLoginDialog();
+		this.pLoginDialog = new PLoginDialog(this);
 		this.pLoginDialog.setVisible(true);
+		
+		this.pMainPanel.setUserName(this.pLoginDialog.getUsername());
 	}
 }
