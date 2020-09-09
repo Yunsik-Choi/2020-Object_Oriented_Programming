@@ -1,17 +1,16 @@
+package sugangShincheong;
 import java.awt.BorderLayout;
 
 import javax.swing.JPanel;
 
-public class PMainPanel extends JPanel {
+public class PSugangShincheongPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	
 	private PHeaderPanel pHeaderPanel;
 	private PContentPanel pContentPanel;
 	private PFooterPanel pFooterPanel;
 	
-	private String userName;
-	
-	public PMainPanel() {
+	public PSugangShincheongPanel() {
 		this.setLayout(new BorderLayout());
 		
 		this.pHeaderPanel = new PHeaderPanel();
@@ -22,10 +21,6 @@ public class PMainPanel extends JPanel {
 		
 		this.pFooterPanel = new PFooterPanel();
 		this.add(this.pFooterPanel, BorderLayout.SOUTH);
-	}
-	
-	public void setUserName(String name) {
-		this.pHeaderPanel.setUserName(name);
 	}
 
 }

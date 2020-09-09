@@ -1,1 +1,1 @@
-# Object-oriented
+# 객체

@@ -1,3 +1,4 @@
+package mainFrame;
 import javax.swing.JMenuBar;
 
 public class PMenuBar extends JMenuBar {

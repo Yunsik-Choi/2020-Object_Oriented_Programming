@@ -1,3 +1,4 @@
+package sugangShincheong;
 import javax.swing.JPanel;
 
 public class PFooterPanel extends JPanel {

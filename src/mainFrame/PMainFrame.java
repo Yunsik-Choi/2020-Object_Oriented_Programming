@@ -1,14 +1,17 @@
+package mainFrame;
 import java.awt.BorderLayout;
 
 import javax.swing.JFrame;
 
+import constants.Constants;
+import sugangShincheong.PSugangShincheongPanel;
+
 public class PMainFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
 
-	private PLoginDialog pLoginDialog;
 	private PMenuBar pMenuBar;
 	private PToolBar pToolBar;
-	private PMainPanel pMainPanel;
+	private PSugangShincheongPanel pMainPanel;
 	//constructor
 	public PMainFrame() {
 		this.setSize(Constants.EMainFrame.WIDTH.getSize(),Constants.EMainFrame.HEIGHT.getSize());
@@ -22,12 +25,8 @@ public class PMainFrame extends JFrame {
 		this.pToolBar = new PToolBar();
 		this.add(this.pToolBar,BorderLayout.NORTH);
 		
-		this.pMainPanel = new PMainPanel();
+		this.pMainPanel = new PSugangShincheongPanel();
 		this.add(this.pMainPanel,BorderLayout.CENTER);
 		
-		this.pLoginDialog = new PLoginDialog(this);
-		this.pLoginDialog.setVisible(true);
-		
-		this.pMainPanel.setUserName(this.pLoginDialog.getUsername());
 	}
 }
