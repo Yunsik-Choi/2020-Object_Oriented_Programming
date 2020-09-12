@@ -11,7 +11,7 @@ public class PMainFrame extends JFrame {
 
 	private PMenuBar pMenuBar;
 	private PToolBar pToolBar;
-	private PSugangShincheongPanel pMainPanel;
+	public PSugangShincheongPanel pMainPanel;
 	//constructor
 	public PMainFrame() {
 		this.setSize(Constants.EMainFrame.WIDTH.getSize(),Constants.EMainFrame.HEIGHT.getSize());
