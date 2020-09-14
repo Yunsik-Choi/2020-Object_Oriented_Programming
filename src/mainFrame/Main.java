@@ -1,14 +1,16 @@
 package mainFrame;
 
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
 public class Main {
 
 	public static void main(String[] args) {
 		
-		PLoginDialog pLoginDialog = new PLoginDialog();
-		pLoginDialog.setVisible(true);
-		// TODO Auto-generated method stub
 		PMainFrame pMainFrame = new PMainFrame();
-		pMainFrame.setVisible(true);
+		PLoginDialog pLoginDialog = new PLoginDialog(pMainFrame);
+		pLoginDialog.setVisible(true);
+//		pMainFrame.setVisible(true);
 	}
 
 }

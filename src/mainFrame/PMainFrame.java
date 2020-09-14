@@ -29,4 +29,8 @@ public class PMainFrame extends JFrame {
 		this.add(this.pMainPanel,BorderLayout.CENTER);
 		
 	}
+	
+	public PSugangShincheongPanel getPMainPanel() {
+		return this.pMainPanel;
+	}
 }
