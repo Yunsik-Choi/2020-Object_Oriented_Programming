@@ -6,7 +6,7 @@ import javax.swing.JPanel;
 public class PSugangShincheongPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	
-	public PHeaderPanel pHeaderPanel;
+	private PHeaderPanel pHeaderPanel;
 	private PContentPanel pContentPanel;
 	private PFooterPanel pFooterPanel;
 	
@@ -22,4 +22,5 @@ public class PSugangShincheongPanel extends JPanel {
 		this.pFooterPanel = new PFooterPanel();
 		this.add(this.pFooterPanel, BorderLayout.SOUTH);
 	}
+
 }

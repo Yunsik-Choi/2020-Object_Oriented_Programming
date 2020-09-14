@@ -10,15 +10,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import constants.CLogin;
 import constants.Constants.ELoginDialog;
-import dto.VUserInfo;
 
 public class PLoginDialog extends JDialog {
 	private static final long serialVersionUID = 1L;
 
-	private PMainFrame pMainframe;
-	
 	private JLabel nameLabel;
 	private JTextField nameText;
 	private JLabel passwordLabel;
@@ -28,9 +24,7 @@ public class PLoginDialog extends JDialog {
 	
 	private ActionHandler actionHandler;
 	
-	public PLoginDialog(PMainFrame pMainFrame) {
-		super(pMainFrame,true);
-		this.pMainframe = pMainFrame;
+	public PLoginDialog() {
 		this.setSize(ELoginDialog.width.getInt(),ELoginDialog.height.getInt());
 		this.setResizable(false);
 		
@@ -69,12 +63,9 @@ public class PLoginDialog extends JDialog {
 	}
 	
 	private void validateUser() {
-		CLogin cLogin = new CLogin();
-		VUserInfo vUserInfo =  cLogin.validateUser(this.nameText.getText(),this.passwordText.getText());
-		if(vUserInfo!=null&&vUserInfo.getId()!=null) {
-			this.pMainframe.pMainPanel.pHeaderPanel.setUserName(vUserInfo.getName());
-			dispose();
-		}
+//		CLogin cLogin = new CLogin();
+//		VUserInfo vUserInfo =  cLogin.validateUser(this.nameText.getText(),this.passwordText.getText());
+		
 	}
 	
 	private class ActionHandler implements ActionListener{

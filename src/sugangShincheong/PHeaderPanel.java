@@ -6,14 +6,8 @@ public class PHeaderPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 
 	private JLabel welcomeLabel;
-	
 	public PHeaderPanel() {
-
-	}
-	
-	public void setUserName(String text) {
-		this.welcomeLabel = new JLabel(text+"¥‘ æ»≥Á«œººø‰");
+		this.welcomeLabel = new JLabel("¥‘ æ»≥Á«œººø‰");
 		this.add(this.welcomeLabel);
-		revalidate();
 	}
 }
