@@ -11,6 +11,10 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import constants.Constants.ELoginDialog;
+import control.CLogin;
+import control.CUser;
+import valueObject.VLogin;
+import valueObject.VUser;
 
 public class PLoginDialog extends JDialog {
 	private static final long serialVersionUID = 1L;
@@ -63,9 +67,13 @@ public class PLoginDialog extends JDialog {
 	}
 	
 	private void validateUser() {
-//		CLogin cLogin = new CLogin();
-//		VUserInfo vUserInfo =  cLogin.validateUser(this.nameText.getText(),this.passwordText.getText());
-		
+		CLogin cLogin = new CLogin();
+		VLogin vLogin = new VLogin(this.nameText.getText(),this.passwordText.getText());
+		boolean bLoginSuccess =  cLogin.validate(vLogin);
+		if(bLoginSuccess) {
+			CUser cUser = new CUser();
+			VUser vUser = cUser.getUser();
+		}
 	}
 	
 	private class ActionHandler implements ActionListener{
