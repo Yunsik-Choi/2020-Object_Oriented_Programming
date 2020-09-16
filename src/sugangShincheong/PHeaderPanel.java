@@ -7,11 +7,7 @@ public class PHeaderPanel extends JPanel {
 
 	private JLabel welcomeLabel;
 	public PHeaderPanel() {
-
-	}
-	
-	public void setHeaderLabel(String text) {
-		this.welcomeLabel = new JLabel(text+"¥‘ æ»≥Á«œººø‰");
+		this.welcomeLabel = new JLabel("¥‘ æ»≥Á«œººø‰");
 		this.add(this.welcomeLabel);
 	}
 }

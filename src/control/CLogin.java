@@ -13,7 +13,6 @@ public class CLogin {
 		if(mLogin != null) {
 			if(vLogin.getPassword().contentEquals(mLogin.getPassword())) {
 				bLoginSuccess = true;
-				return bLoginSuccess;
 			}
 			else {
 				//password mismatch

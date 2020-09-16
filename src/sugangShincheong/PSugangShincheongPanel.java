@@ -23,7 +23,4 @@ public class PSugangShincheongPanel extends JPanel {
 		this.add(this.pFooterPanel, BorderLayout.SOUTH);
 	}
 
-	public PHeaderPanel getPHeaderPanel() {
-		return this.pHeaderPanel;
-	}
 }

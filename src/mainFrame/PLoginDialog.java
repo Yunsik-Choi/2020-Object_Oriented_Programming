@@ -1,10 +1,8 @@
 package mainFrame;
 import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -30,24 +28,10 @@ public class PLoginDialog extends JDialog {
 	
 	private ActionHandler actionHandler;
 	
-	public PMainFrame pMainFrame;
-	
-	public boolean closeDialog = false;
-	
-	public PLoginDialog(PMainFrame pMainFrame) {
-		super(pMainFrame,true);
-		this.pMainFrame = pMainFrame;
+	public PLoginDialog() {
 		this.setSize(ELoginDialog.width.getInt(),ELoginDialog.height.getInt());
 		this.setResizable(false);
-		this.addWindowListener(new WindowAdapter() {
-			@Override
-			public void windowClosing(WindowEvent e) {
-				// TODO Auto-generated method stub
-				if(closeDialog==false) {
-					System.exit(0);
-				}
-			}
-		});
+		
 		this.actionHandler = new ActionHandler();
 		this.setLayout(new FlowLayout());
 		
@@ -88,11 +72,7 @@ public class PLoginDialog extends JDialog {
 		boolean bLoginSuccess =  cLogin.validate(vLogin);
 		if(bLoginSuccess) {
 			CUser cUser = new CUser();
-			VUser vUser = cUser.getUser(vLogin);
-			this.pMainFrame.getPMainPanel().getPHeaderPanel().setHeaderLabel(vUser.getName());
-			this.closeDialog = true;
-			dispose();
-			this.pMainFrame.setVisible(true);
+			VUser vUser = cUser.getUser();
 		}
 	}
 	
@@ -102,11 +82,7 @@ public class PLoginDialog extends JDialog {
 			if(event.getActionCommand().equals(ELoginDialog.okButtonLabel.getText())) {
 				validateUser();
 			}
-			else if(event.getActionCommand().equals(ELoginDialog.cancelButtonLabel.getText())) {
-				System.exit(0);
-				dispose();
-				
-			}
+			
 		}
 		
 	}

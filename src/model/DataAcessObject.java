@@ -24,19 +24,5 @@ public class DataAcessObject {
 		}
 		return null;
 	}
-	
-	public MUser getUser(String userId) {
-		try {
-			Scanner scanner = new Scanner(new File("userInfo/"+userId));
-			if(scanner!=null) {
-				MUser mUser = new MUser(scanner,userId);
-				return mUser;
-			}
-			scanner.close();
-		}catch(Exception e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
 
 }
