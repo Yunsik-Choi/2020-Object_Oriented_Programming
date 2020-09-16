@@ -5,6 +5,7 @@ import javax.swing.JFrame;
 
 import constants.Constants;
 import sugangShincheong.PSugangShincheongPanel;
+import valueObject.VUser;
 
 public class PMainFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
@@ -13,7 +14,7 @@ public class PMainFrame extends JFrame {
 	private PToolBar pToolBar;
 	private PSugangShincheongPanel pMainPanel;
 	//constructor
-	public PMainFrame() {
+	public PMainFrame(VUser vUser) {
 		this.setSize(Constants.EMainFrame.WIDTH.getSize(),Constants.EMainFrame.HEIGHT.getSize());
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
@@ -25,7 +26,7 @@ public class PMainFrame extends JFrame {
 		this.pToolBar = new PToolBar();
 		this.add(this.pToolBar,BorderLayout.NORTH);
 		
-		this.pMainPanel = new PSugangShincheongPanel();
+		this.pMainPanel = new PSugangShincheongPanel(vUser);
 		this.add(this.pMainPanel,BorderLayout.CENTER);
 		
 	}
