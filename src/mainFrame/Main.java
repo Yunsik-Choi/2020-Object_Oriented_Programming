@@ -4,29 +4,35 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import constants.Constants.ELoginDialog;
+import valueObject.VUser;
 
 public class Main {
 
 	private PLoginDialog pLoginDialog;
-	public static void main(String[] args) {
-		
+	private PMainFrame pMainFrame;
+	private void run() {
 		ActionHandler actionHandler = new ActionHandler();
-		pLoginDialog = new PLoginDialog(actionHandler);
-		pLoginDialog.setVisible(true);
-
-		PMainFrame pMainFrame = new PMainFrame(vUser);
-		pMainFrame.setVisible(true);
+		this.pLoginDialog = new PLoginDialog(actionHandler);
+		this.pLoginDialog.setVisible(true);
 	}
-	
+	private void validateUser(String actionCommand) {
+		VUser vUser = pLoginDialog.validateUser(actionCommand);
+		if(vUser !=null) {
+			this.pMainFrame = new PMainFrame(vUser);
+			this.pMainFrame.setVisible(true);
+		}
+		pLoginDialog.dispose();
+	}
 	public class ActionHandler implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent event) {
-			if(event.getActionCommand().equals(ELoginDialog.okButton.getText())) {
-				pLoginDialog.validateUser();
-			}
-			
+			validateUser(event.getActionCommand());
 		}
-		
+	}
+	
+	public static void main(String[] args) {
+		Main main = new Main();
+		main.run();
 	}
 
 }

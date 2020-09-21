@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -64,22 +65,24 @@ public class PLoginDialog extends JDialog {
 		this.add(line3);
 	}
 	
-	public void validateUser() {
-		CLogin cLogin = new CLogin();
-		VLogin vLogin = new VLogin(this.UserIdTextField.getText(),this.passwordTextField.getText());
-		boolean bLoginSuccess =  cLogin.validate(vLogin);
-		if(bLoginSuccess) {
-			CUser cUser = new CUser();
-			VUser vUser = cUser.getUser(vLogin.getUserId());
-			
-			if(vUser != null) {
-
+	public VUser validateUser(String actionCommand) {
+		VUser vUser = null;
+		if(actionCommand.contentEquals(this.okButton.getText())) {
+			CLogin cLogin = new CLogin();
+			VLogin vLogin = new VLogin(this.UserIdTextField.getText(),this.passwordTextField.getText());
+			boolean bLoginSuccess =  cLogin.validate(vLogin);
+			if(bLoginSuccess) {
+				CUser cUser = new CUser();
+				vUser = cUser.getUser(vLogin.getUserId());
+				if(vUser == null) {
+					JOptionPane.showConfirmDialog(this, "회원정보가 존재하지 않습니다.");
+				}
 			} else {
-				// 시스템 에러
+				// 로그인 실패
+				JOptionPane.showConfirmDialog(this, "아이디나 비밀번호가 존재하지 않습니다.");
 			}
-		} else {
-			// 로그인 실패
 		}
+		return vUser;
 	}
 	
 }
