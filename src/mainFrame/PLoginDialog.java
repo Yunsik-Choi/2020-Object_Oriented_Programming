@@ -1,18 +1,19 @@
 package mainFrame;
 import java.awt.FlowLayout;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import constants.Constants.ELoginDialog;
 import control.CLogin;
 import control.CUser;
+import mainFrame.Main.ActionHandler;
 import valueObject.VLogin;
 import valueObject.VUser;
 
@@ -25,18 +26,10 @@ public class PLoginDialog extends JDialog {
 	private JTextField passwordTextField;
 	private JButton okButton;
 	private JButton cancelButton;
-	private VUser vUser;
 	
 	public PLoginDialog(ActionHandler actionHandler) {
 		this.setSize(ELoginDialog.width.getInt(),ELoginDialog.height.getInt());
 		this.setResizable(false);
-		this.addWindowListener(new WindowAdapter() {
-			@Override
-			public void windowClosing(WindowEvent e) {
-				// TODO Auto-generated method stub
-				System.exit(0);
-			}
-		});
 		
 		this.setLayout(new FlowLayout());
 		
@@ -71,33 +64,22 @@ public class PLoginDialog extends JDialog {
 		this.add(line3);
 	}
 	
-	public JButton getOKButton() {
-		return this.okButton;
-	}
-	public JButton getCancleButton() {
-		return this.cancelButton;
-	}
 	public void validateUser() {
 		CLogin cLogin = new CLogin();
 		VLogin vLogin = new VLogin(this.UserIdTextField.getText(),this.passwordTextField.getText());
 		boolean bLoginSuccess =  cLogin.validate(vLogin);
 		if(bLoginSuccess) {
 			CUser cUser = new CUser();
-			this.vUser = cUser.getUser(vLogin.getUserId());
+			VUser vUser = cUser.getUser(vLogin.getUserId());
 			
 			if(vUser != null) {
 
 			} else {
 				// 시스템 에러
-				JOptionPane.showMessageDialog(null, "시스템 에러");
 			}
 		} else {
 			// 로그인 실패
-			JOptionPane.showMessageDialog(null, "로그인 실패");
 		}
 	}
 	
-	public VUser getVUser() {
-		return this.vUser;
-	}
 }

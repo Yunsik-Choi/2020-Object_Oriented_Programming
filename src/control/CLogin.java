@@ -1,7 +1,5 @@
 package control;
 
-import javax.swing.JOptionPane;
-
 import model.DataAcessObject;
 import model.MLogin;
 import valueObject.VLogin;
@@ -19,12 +17,10 @@ public class CLogin {
 			}
 			else {
 				//password mismatch
-				JOptionPane.showMessageDialog(null, "Password mismatch");
 			}
 		}
 		else {
 			//no Userid
-			JOptionPane.showMessageDialog(null, "No UserId");
 		}
 		return false;
 	}
