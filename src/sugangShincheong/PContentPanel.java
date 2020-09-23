@@ -26,8 +26,4 @@ public class PContentPanel extends JPanel {
 		this.pResult = new PResult();
 		this.add(this.pResult);
 	}
-	
-	public PSelection getSelection() {
-		return this.pSelection;
-	}
 }
