@@ -15,13 +15,17 @@ public class PMainFrame extends JFrame {
 	private PSugangShincheongPanel pMainPanel;
 	//constructor
 	public PMainFrame(VUser vUser) {
+		// set attributes
 		this.setSize(Constants.EMainFrame.WIDTH.getSize(),Constants.EMainFrame.HEIGHT.getSize());
+		
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
+		//layout
+		this.setLayout(new BorderLayout());
+		
+		// components
 		this.pMenuBar = new PMenuBar();
 		this.setJMenuBar(this.pMenuBar);
-		
-		this.setLayout(new BorderLayout());
 		
 		this.pToolBar = new PToolBar();
 		this.add(this.pToolBar,BorderLayout.NORTH);

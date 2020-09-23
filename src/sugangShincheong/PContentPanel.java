@@ -1,4 +1,5 @@
 package sugangShincheong;
+import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
 public class PContentPanel extends JPanel {
@@ -6,24 +7,26 @@ public class PContentPanel extends JPanel {
 
 	private PSelection pSelection;
 	private PMove pMove1;
-	private PMiridamgi pMiridamgi;
+	private PResult pMiridamgi;
 	private PMove pMove2;
-	private PResult pResult;
+	private PResult pShincheong;
 	
 	public PContentPanel() {
+		this.setLayout(new BoxLayout(this,BoxLayout.X_AXIS));
+		
 		this.pSelection = new PSelection();
 		this.add(this.pSelection);
 		
 		this.pMove1 = new PMove();
 		this.add(this.pSelection);
 		
-		this.pMiridamgi = new PMiridamgi();
+		this.pMiridamgi = new PResult();
 		this.add(this.pMiridamgi);
 		
 		this.pMove2 = new PMove();
 		this.add(this.pMove2);
 		
-		this.pResult = new PResult();
-		this.add(this.pResult);
+		this.pShincheong = new PResult();
+		this.add(this.pShincheong);
 	}
 }

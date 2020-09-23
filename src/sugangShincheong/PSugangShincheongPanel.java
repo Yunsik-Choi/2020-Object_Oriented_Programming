@@ -13,6 +13,7 @@ public class PSugangShincheongPanel extends JPanel {
 	private PFooterPanel pFooterPanel;
 	
 	public PSugangShincheongPanel(VUser vUser) {
+		
 		this.setLayout(new BorderLayout());
 		
 		this.pHeaderPanel = new PHeaderPanel(vUser);
