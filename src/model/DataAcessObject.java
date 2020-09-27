@@ -45,4 +45,30 @@ public class DataAcessObject {
 		}
 		return null;
 	}
+
+	public MHakgwa getHakgwa(String title) {
+		MHakgwa mHakgwa = null;
+		try {
+			Scanner scanner = new Scanner(new File("data/" + title));
+			mHakgwa = new MHakgwa(scanner);
+			scanner.close();
+			return mHakgwa;
+		} catch(FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public MGangjwa getGangjwa(String fname) {
+		MGangjwa mGangjwa = null;
+		try {
+			Scanner scanner = new Scanner(new File("data/" + fname));
+			mGangjwa = new MGangjwa(scanner);
+			scanner.close();
+			return mGangjwa;
+		} catch(FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 }
