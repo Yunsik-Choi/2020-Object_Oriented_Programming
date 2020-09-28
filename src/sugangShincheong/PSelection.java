@@ -13,18 +13,12 @@ public class PSelection extends JPanel {
 	public PSelection() {
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		
-		this.pHakgwaSelection = new PHakgwaSelection(this);
+		this.pHakgwaSelection = new PHakgwaSelection();
 		this.add(pHakgwaSelection);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		this.pGangjwaSelection = new PGangjwaSelection();
 		scrollPane.setViewportView(this.pGangjwaSelection);
 		this.add(scrollPane);
-	}
-
-	public void setGangjwa(String file) {
-		if(file!=null) {
-			pGangjwaSelection.setGangjwa(file);
-		}
 	}
 }
