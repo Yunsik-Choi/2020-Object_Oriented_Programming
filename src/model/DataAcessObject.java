@@ -3,6 +3,7 @@ package model;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
+import java.util.Vector;
 
 public class DataAcessObject {
 
@@ -40,9 +41,25 @@ public class DataAcessObject {
 			}
 			scanner.close();
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	public Vector<MDirectory> getDirectories(String fileName) {
+		Vector<MDirectory> mDirectories = new Vector<MDirectory>();
+		try {
+			Scanner scanner = new Scanner(new File("lectureInfo/" + fileName));
+			
+			while(scanner.hasNext()) {
+				MDirectory mDirectory = new MDirectory(scanner);
+				mDirectory.read();
+				mDirectories.add(mDirectory);
+			}
+			scanner.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		return mDirectories;
 	}
 }

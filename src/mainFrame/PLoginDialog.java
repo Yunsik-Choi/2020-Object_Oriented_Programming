@@ -30,6 +30,7 @@ public class PLoginDialog extends JDialog {
 	
 	public PLoginDialog(ActionHandler actionHandler) {
 		this.setSize(ELoginDialog.width.getInt(),ELoginDialog.height.getInt());
+		this.setLocationRelativeTo(null);
 		this.setResizable(false);
 		
 		this.setLayout(new FlowLayout());
@@ -53,6 +54,7 @@ public class PLoginDialog extends JDialog {
 		this.okButton = new JButton(ELoginDialog.okButtonLabel.getText());
 		this.okButton.addActionListener(actionHandler);
 		this.okButton.setActionCommand(this.okButton.getText());
+		this.getRootPane().setDefaultButton(okButton);
 		line3.add(this.okButton);
 		
 		this.cancelButton = new JButton(ELoginDialog.cancelButtonLabel.getText());

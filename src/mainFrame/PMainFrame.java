@@ -17,7 +17,7 @@ public class PMainFrame extends JFrame {
 	public PMainFrame(VUser vUser) {
 		// set attributes
 		this.setSize(Constants.EMainFrame.WIDTH.getSize(),Constants.EMainFrame.HEIGHT.getSize());
-		
+		this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
 		//layout

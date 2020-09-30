@@ -9,6 +9,10 @@ import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 
+import control.CDirectory;
+import sugangShincheong.PSelection.ListSelectionHandler;
+import valueObject.VDirectory;
+
 public class PHakgwaSelection extends JPanel {
 	private static final long serialVersionUID = 1L;
 
@@ -16,37 +20,71 @@ public class PHakgwaSelection extends JPanel {
 	private PDirectory pCollege;
 	private PDirectory pHakgwa;
 	
-	public PHakgwaSelection() {
+	private String fileName;
+	
+	public PHakgwaSelection(ListSelectionHandler listSelectionHandler) {
 		this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
+		this.fileName = "root";
 		
 		JScrollPane scrollpane;
 		scrollpane = new JScrollPane();
-		this.pCampus = new PDirectory("캠퍼스");
+		this.pCampus = new PDirectory("캠퍼스",listSelectionHandler);
 		scrollpane.setViewportView(this.pCampus);
 		this.add(scrollpane);
+		this.fileName = this.pCampus.getData(fileName);
 		
 		scrollpane = new JScrollPane();
-		this.pCollege = new PDirectory("대학");
+		this.pCollege = new PDirectory("대학",listSelectionHandler);
 		scrollpane.setViewportView(this.pCollege);
 		this.add(scrollpane);
+		fileName = this.pCollege.getData(fileName);
 		
 		scrollpane = new JScrollPane();
-		this.pHakgwa = new PDirectory("학과");
+		this.pHakgwa = new PDirectory("학과",listSelectionHandler);
 		scrollpane.setViewportView(this.pHakgwa);
 		this.add(scrollpane);
+		fileName = this.pHakgwa.getData(fileName);
 		
 	}
-	
+
+	public void update(Object source) {
+		if(source.equals(this.pCampus)) {
+			
+		} else if(source.equals(this.pCampus)) {
+			
+		} else if(source.equals(this.pHakgwa)) {
+			
+		}
+	}
 	public class PDirectory extends JTable {
 		private static final long serialVersionUID = 1L;
 
-		public PDirectory(String title) {
+		private DefaultTableModel tableModel;
+		public PDirectory(String title, ListSelectionHandler listSelectionHandler) {
 			//attributes
+			this.getSelectionModel().addListSelectionListener(listSelectionHandler);
+			
 			//data model
 			Vector<String> header = new Vector<String>();
 			header.addElement(title);
-			DefaultTableModel tableModel = new DefaultTableModel(header,0);
+			this.tableModel = new DefaultTableModel(header,0);
 			this.setModel(tableModel);
 		}
+
+		public String getData(String fileName) {
+			CDirectory cDirectory = new CDirectory();
+			Vector<VDirectory> vDirectories = cDirectory.getData(fileName);
+			for (VDirectory vDirectory: vDirectories) {
+				Vector<String> row = new Vector<String>();
+				row.add(vDirectory.getName());
+				this.tableModel.addRow(row);
+			}
+			if(vDirectories.size()>0) {
+				this.getSelectionModel().addSelectionInterval(0, 0);
+				return vDirectories.get(0).getFileName();
+			}
+			return null;
+		}
 	}
+
 }
