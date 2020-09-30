@@ -21,6 +21,8 @@ public class PHakgwaSelection extends JPanel {
 	private PDirectory pHakgwa;
 	
 	private String fileName;
+	private String GangjwaName = "englishYG";
+	
 	
 	public PHakgwaSelection(ListSelectionHandler listSelectionHandler) {
 		this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
@@ -31,7 +33,7 @@ public class PHakgwaSelection extends JPanel {
 		this.pCampus = new PDirectory("Ä·ÆÛ½º",listSelectionHandler);
 		scrollpane.setViewportView(this.pCampus);
 		this.add(scrollpane);
-		this.fileName = this.pCampus.getData(fileName);
+		fileName = this.pCampus.getData(fileName);
 		
 		scrollpane = new JScrollPane();
 		this.pCollege = new PDirectory("´ëÇÐ",listSelectionHandler);
@@ -47,19 +49,46 @@ public class PHakgwaSelection extends JPanel {
 		
 	}
 
-	public void update(Object source) {
-		if(source.equals(this.pCampus)) {
-			
-		} else if(source.equals(this.pCampus)) {
-			
-		} else if(source.equals(this.pHakgwa)) {
-			
+	public void update(Object source, Vector<String> searchDirectory) {
+		String s = source.toString();
+		String[] temp = s.split(" ");
+		String[] arr = temp[2].split("");
+		int selectNum;
+		if(!arr[2].equals("}")) {
+			selectNum = Integer.parseInt(arr[2]);
+		}else {
+			selectNum = 0;
+		}
+		if(temp[1].equals(searchDirectory.get(0))) {
+			String file = this.pCampus.cDirectory.getData("root").get(selectNum).getFileName();
+			this.pCollege.setData(file);
+			String file2 = this.pCollege.cDirectory.getData(file).get(0).getFileName();
+			this.pHakgwa.setData(file2);
+		} else if(temp[1].equals(searchDirectory.get(1))) {
+			String file2 = this.pCollege.vDirectories.get(selectNum).getFileName();
+			this.pHakgwa.setData(file2);
+		} else if(temp[1].equals(searchDirectory.get(2))) {
+			String file3 = this.pHakgwa.vDirectories.get(selectNum).getFileName();
+			this.GangjwaName = file3;
 		}
 	}
+	
+	public void setDefault() {
+		String file = this.pCampus.cDirectory.getData("root").get(0).getFileName();
+		this.pCollege.setData(file);
+		String file2 = this.pCollege.cDirectory.getData(file).get(0).getFileName();
+		this.pHakgwa.setData(file2);
+		String file3 = this.pHakgwa.vDirectories.get(0).getFileName();
+		this.GangjwaName = file3;
+	}
+	
 	public class PDirectory extends JTable {
 		private static final long serialVersionUID = 1L;
 
 		private DefaultTableModel tableModel;
+		private CDirectory cDirectory;
+		private Vector<VDirectory> vDirectories;
+		
 		public PDirectory(String title, ListSelectionHandler listSelectionHandler) {
 			//attributes
 			this.getSelectionModel().addListSelectionListener(listSelectionHandler);
@@ -72,8 +101,8 @@ public class PHakgwaSelection extends JPanel {
 		}
 
 		public String getData(String fileName) {
-			CDirectory cDirectory = new CDirectory();
-			Vector<VDirectory> vDirectories = cDirectory.getData(fileName);
+			this.cDirectory = new CDirectory();
+			this.vDirectories = cDirectory.getData(fileName);
 			for (VDirectory vDirectory: vDirectories) {
 				Vector<String> row = new Vector<String>();
 				row.add(vDirectory.getName());
@@ -85,6 +114,14 @@ public class PHakgwaSelection extends JPanel {
 			}
 			return null;
 		}
+		
+		public void setData(String fileName) {
+			this.tableModel.setRowCount(0);
+			getData(fileName);
+		}
+	}
+	public String getFileName() {
+		return GangjwaName;
 	}
 
 }

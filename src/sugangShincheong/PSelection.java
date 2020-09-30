@@ -1,5 +1,7 @@
 package sugangShincheong;
 
+import java.util.Vector;
+
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -11,29 +13,37 @@ public class PSelection extends JPanel {
 
 	private PHakgwaSelection pHakgwaSelection;
 	private PGangjwaSelection pGangjwaSelection;
-	
+	private Vector<String> searchDirectory = new Vector<String>();
+	private ListSelectionHandler listSelectionHandler;
 	public PSelection() {
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-		ListSelectionHandler listSelectionHandler = new ListSelectionHandler();
+		this.listSelectionHandler = new ListSelectionHandler();
 		this.pHakgwaSelection = new PHakgwaSelection(listSelectionHandler);
 		this.add(pHakgwaSelection);
-		
 		JScrollPane scrollPane = new JScrollPane();
 		this.pGangjwaSelection = new PGangjwaSelection();
 		scrollPane.setViewportView(this.pGangjwaSelection);
+		this.pHakgwaSelection.setDefault();
 		this.add(scrollPane);
 	}
 	
 	private void update(Object source) {
-		this.pHakgwaSelection.update(source);
-		String fileName = this.pHakgwaSelection.getFileName();
-		this.pGangjwaSelection.update(fileName);
+		String s = source.toString();
+		String[] temp = s.split(" ");
+		this.searchDirectory.add(temp[1]);
+		if(pHakgwaSelection!=null) {
+			this.pHakgwaSelection.update(source,searchDirectory);
+			String fileName = this.pHakgwaSelection.getFileName();
+			this.pGangjwaSelection.update(fileName);
+		}
 	}
 	
 	public class ListSelectionHandler implements ListSelectionListener{
 		@Override
 		public void valueChanged(ListSelectionEvent event) {
-			update(event.getSource());
+			if(!event.getValueIsAdjusting()) {
+				update(event.getSource());
+			}
 		}
 	}
 }

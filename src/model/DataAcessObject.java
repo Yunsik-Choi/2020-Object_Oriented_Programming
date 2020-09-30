@@ -62,4 +62,19 @@ public class DataAcessObject {
 		}
 		return mDirectories;
 	}
+
+	public MGangjwa getGangjwas(String fileName) {
+		MGangjwa mGangjwa = null;
+		try {
+			Scanner scanner = new Scanner(new File("lectureInfo/" + fileName));
+
+			mGangjwa = new MGangjwa(scanner);
+			mGangjwa.read();
+			scanner.close();
+			return mGangjwa;
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		return mGangjwa;
+	}
 }
