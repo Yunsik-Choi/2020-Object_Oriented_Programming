@@ -19,4 +19,8 @@ public class PGangjwaSelection extends JTable {
 		DefaultTableModel tableModel = new DefaultTableModel(header,0);
 		this.setModel(tableModel);
 	}
+
+	public void initialize() {
+		
+	}
 }

@@ -66,6 +66,9 @@ public class PLoginDialog extends JDialog {
 		this.add(line2);
 		this.add(line3);
 	}
+	public void initialize() {
+		
+	}
 	
 	public VUser validateUser(String actionCommand) {
 		VUser vUser = null;
@@ -86,5 +89,7 @@ public class PLoginDialog extends JDialog {
 		}
 		return vUser;
 	}
+
+
 	
 }

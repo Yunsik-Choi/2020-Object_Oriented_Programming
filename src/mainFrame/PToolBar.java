@@ -9,4 +9,8 @@ public class PToolBar extends JToolBar {
 		JButton button1 = new JButton("미리담기");
 		this.add(button1);
 	}
+
+	public void initialize() {
+		
+	}
 }

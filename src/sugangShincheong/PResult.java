@@ -8,4 +8,9 @@ public class PResult extends JPanel {
 	public PResult() {
 		
 	}
+
+	public void initialize() {
+		// TODO Auto-generated method stub
+		
+	}
 }

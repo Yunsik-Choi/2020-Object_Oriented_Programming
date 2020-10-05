@@ -8,4 +8,9 @@ public class PMove extends JPanel {
 	public PMove() {
 		
 	}
+
+	public void initialize() {
+		// TODO Auto-generated method stub
+		
+	}
 }

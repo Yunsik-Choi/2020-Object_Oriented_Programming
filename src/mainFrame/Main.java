@@ -10,16 +10,22 @@ public class Main {
 
 	private PLoginDialog pLoginDialog;
 	private PMainFrame pMainFrame;
-	private void run() {
+	
+	public Main() {
 		ActionHandler actionHandler = new ActionHandler();
 		this.pLoginDialog = new PLoginDialog(actionHandler);
 		this.pLoginDialog.setVisible(true);
 	}
+	
+	private void initialize() {
+		this.pLoginDialog.initialize();
+	}
 	private void validateUser(String actionCommand) {
 		VUser vUser = pLoginDialog.validateUser(actionCommand);
 		if(vUser !=null) {
-			this.pMainFrame = new PMainFrame(vUser);
+			this.pMainFrame = new PMainFrame();
 			this.pMainFrame.setVisible(true);
+			this.pMainFrame.initialize(vUser);
 		}
 		pLoginDialog.dispose();
 	}
@@ -32,7 +38,7 @@ public class Main {
 	
 	public static void main(String[] args) {
 		Main main = new Main();
-		main.run();
+		main.initialize();
 	}
 
 }

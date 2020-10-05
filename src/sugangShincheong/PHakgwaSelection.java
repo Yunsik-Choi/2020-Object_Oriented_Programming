@@ -31,28 +31,32 @@ public class PHakgwaSelection extends JPanel {
 		this.pCampus = new PDirectory("캠퍼스",listSelectionHandler);
 		scrollpane.setViewportView(this.pCampus);
 		this.add(scrollpane);
-		this.fileName = this.pCampus.getData(fileName);
 		
 		scrollpane = new JScrollPane();
 		this.pCollege = new PDirectory("대학",listSelectionHandler);
 		scrollpane.setViewportView(this.pCollege);
 		this.add(scrollpane);
-		fileName = this.pCollege.getData(fileName);
 		
 		scrollpane = new JScrollPane();
 		this.pHakgwa = new PDirectory("학과",listSelectionHandler);
 		scrollpane.setViewportView(this.pHakgwa);
 		this.add(scrollpane);
-		fileName = this.pHakgwa.getData(fileName);
-		
+	}
+	
+	public void initialize() {
+		fileName = this.pCampus.initialize(fileName);
+		fileName = this.pCollege.initialize(fileName);
+		fileName = this.pHakgwa.initialize(fileName);
 	}
 
 	public void update(Object source) {
-		if(source.equals(this.pCampus)) {
+		if(source.equals(this.pCampus.getSelectionModel())) {
+			int selectedRowIndex = this.pCampus.getSelectedRow();
+			fileName = this.pCollege.getData(fileName);
+			fileName = this.pHakgwa.getData(fileName);
+		} else if(source.equals(this.pCampus.getSelectionModel())) {
 			
-		} else if(source.equals(this.pCampus)) {
-			
-		} else if(source.equals(this.pHakgwa)) {
+		} else if(source.equals(this.pHakgwa.getSelectionModel())) {
 			
 		}
 	}
@@ -71,6 +75,10 @@ public class PHakgwaSelection extends JPanel {
 			this.setModel(tableModel);
 		}
 
+		public String initialize(String fileName) {
+			return this.getData(fileName);
+		}
+
 		public String getData(String fileName) {
 			CDirectory cDirectory = new CDirectory();
 			Vector<VDirectory> vDirectories = cDirectory.getData(fileName);
@@ -86,5 +94,6 @@ public class PHakgwaSelection extends JPanel {
 			return null;
 		}
 	}
+
 
 }

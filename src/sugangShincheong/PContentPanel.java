@@ -29,4 +29,12 @@ public class PContentPanel extends JPanel {
 		this.pShincheong = new PResult();
 		this.add(this.pShincheong);
 	}
+
+	public void initialize() {
+		this.pSelection.initialize();
+		this.pMove1.initialize();
+		this.pMiridamgi.initialize();
+		this.pMove2.initialize();
+		this.pShincheong.initialize();
+	}
 }

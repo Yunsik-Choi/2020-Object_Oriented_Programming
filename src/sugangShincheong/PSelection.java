@@ -15,6 +15,7 @@ public class PSelection extends JPanel {
 	public PSelection() {
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		ListSelectionHandler listSelectionHandler = new ListSelectionHandler();
+		
 		this.pHakgwaSelection = new PHakgwaSelection(listSelectionHandler);
 		this.add(pHakgwaSelection);
 		
@@ -23,11 +24,10 @@ public class PSelection extends JPanel {
 		scrollPane.setViewportView(this.pGangjwaSelection);
 		this.add(scrollPane);
 	}
-	
 	private void update(Object source) {
 		this.pHakgwaSelection.update(source);
-		String fileName = this.pHakgwaSelection.getFileName();
-		this.pGangjwaSelection.update(fileName);
+//		String fileName = this.pHakgwaSelection.getFileName();
+//		this.pGangjwaSelection.update(fileName);
 	}
 	
 	public class ListSelectionHandler implements ListSelectionListener{
@@ -35,5 +35,10 @@ public class PSelection extends JPanel {
 		public void valueChanged(ListSelectionEvent event) {
 			update(event.getSource());
 		}
+	}
+
+	public void initialize() {
+		this.pHakgwaSelection.initialize();
+		this.pGangjwaSelection.initialize();
 	}
 }

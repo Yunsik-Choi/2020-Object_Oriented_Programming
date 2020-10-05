@@ -14,7 +14,7 @@ public class PMainFrame extends JFrame {
 	private PToolBar pToolBar;
 	private PSugangShincheongPanel pMainPanel;
 	//constructor
-	public PMainFrame(VUser vUser) {
+	public PMainFrame() {
 		// set attributes
 		this.setSize(Constants.EMainFrame.WIDTH.getSize(),Constants.EMainFrame.HEIGHT.getSize());
 		this.setLocationRelativeTo(null);
@@ -30,8 +30,13 @@ public class PMainFrame extends JFrame {
 		this.pToolBar = new PToolBar();
 		this.add(this.pToolBar,BorderLayout.NORTH);
 		
-		this.pMainPanel = new PSugangShincheongPanel(vUser);
+		this.pMainPanel = new PSugangShincheongPanel();
 		this.add(this.pMainPanel,BorderLayout.CENTER);
-		
+	}
+	
+	public void initialize(VUser vUser) {
+		this.pMenuBar.initialize();
+		this.pToolBar.initialize();
+		this.pMainPanel.initialize(vUser);
 	}
 }
