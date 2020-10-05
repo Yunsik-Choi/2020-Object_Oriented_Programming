@@ -52,7 +52,8 @@ public class DataAcessObject {
 			Scanner scanner = new Scanner(new File("lectureInfo/" + fileName));
 			
 			while(scanner.hasNext()) {
-				MDirectory mDirectory = new MDirectory(scanner);
+				MDirectory mDirectory = new MDirectory();
+				mDirectory.initialize(scanner);
 				mDirectory.read();
 				mDirectories.add(mDirectory);
 			}
@@ -61,5 +62,20 @@ public class DataAcessObject {
 			e.printStackTrace();
 		}
 		return mDirectories;
+	}
+
+	public MGangjwa getGangjwas(String fileName) {
+		MGangjwa mGangjwa = null;
+		try {
+			Scanner scanner = new Scanner(new File("lectureInfo/" + fileName));
+			mGangjwa = new MGangjwa();
+			mGangjwa.initialize(scanner);
+			mGangjwa.read();
+			scanner.close();
+			return mGangjwa;
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		return mGangjwa;
 	}
 }

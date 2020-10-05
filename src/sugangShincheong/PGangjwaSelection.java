@@ -5,8 +5,12 @@ import java.util.Vector;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import control.CGangjwa;
+import valueObject.VGangjwa;
+
 public class PGangjwaSelection extends JTable {
 	private static final long serialVersionUID = 1L;
+	DefaultTableModel tableModel;
 	
 	public PGangjwaSelection() {
 		//data model
@@ -16,11 +20,28 @@ public class PGangjwaSelection extends JTable {
 		header.addElement("담당교수");
 		header.addElement("시간");
 
-		DefaultTableModel tableModel = new DefaultTableModel(header,0);
+		this.tableModel = new DefaultTableModel(header,0);
 		this.setModel(tableModel);
 	}
 
 	public void initialize() {
 		
+	}
+
+	public void update(String fileName) {
+		this.tableModel.setRowCount(0);
+		CGangjwa cGangjwa = new CGangjwa();
+		Vector<VGangjwa> vGangjwas= cGangjwa.getData(fileName);
+		for (VGangjwa vGangjwa: vGangjwas) {
+			Vector<String> row = new Vector<String>();
+			row.add(vGangjwa.getNum());
+			row.add(vGangjwa.getName());
+			row.add(vGangjwa.getPro());
+			row.add(vGangjwa.getTime());
+			this.tableModel.addRow(row);
+		}
+		if(vGangjwas.size()>0) {
+			this.getSelectionModel().addSelectionInterval(0, 0);
+		}
 	}
 }

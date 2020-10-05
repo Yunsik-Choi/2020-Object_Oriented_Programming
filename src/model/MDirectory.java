@@ -9,7 +9,10 @@ public class MDirectory {
 	private String name;
 	private String fileName;
 	
-	public MDirectory(Scanner scanner) {
+	public MDirectory() {
+
+	}
+	public void initialize(Scanner scanner) {
 		this.scanner = scanner;
 	}
 
@@ -30,4 +33,6 @@ public class MDirectory {
 	public String getFileName() {
 		return fileName;
 	}
+
+
 }

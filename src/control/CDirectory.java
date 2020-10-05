@@ -11,7 +11,10 @@ public class CDirectory {
 	public CDirectory() {
 		
 	}
-
+	
+	public void initialize() {
+		
+	}
 	public Vector<VDirectory> getData(String fileName) {
 		DataAcessObject dataAcessObject = new DataAcessObject();
 		Vector<MDirectory> mDirectories =  dataAcessObject.getDirectories(fileName);
@@ -26,4 +29,6 @@ public class CDirectory {
 		}
 		return vDirectories;
 	}
+
+
 }
