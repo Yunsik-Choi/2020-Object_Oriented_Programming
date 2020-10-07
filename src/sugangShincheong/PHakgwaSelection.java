@@ -18,7 +18,7 @@ public class PHakgwaSelection extends JPanel {
 
 	private PDirectory pCampus;
 	private PDirectory pCollege;
-	private PDirectory pHakgwa;
+	public PDirectory pHakgwa;
 	
 	private String fileName;
 	
@@ -63,7 +63,8 @@ public class PHakgwaSelection extends JPanel {
 			this.fileName = this.pCollege.getSelectedFileName();
 			this.fileName = this.pHakgwa.getData(this.fileName);
 		} else if(source.equals(this.pHakgwa.getSelectionModel())) {
-			this.fileName = this.pHakgwa.getData(this.fileName);
+			int selectedRowIndex = this.pHakgwa.getSelectedRow();
+			this.fileName = this.pHakgwa.getSelectedFileName();
 		}
 	}
 	public class PDirectory extends JTable {
@@ -114,6 +115,7 @@ public class PHakgwaSelection extends JPanel {
 			return selectedFileName;
 		}
 	}
+
 
 
 }

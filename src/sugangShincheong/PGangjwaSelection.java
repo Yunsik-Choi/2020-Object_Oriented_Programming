@@ -6,8 +6,10 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import control.CDirectory;
+import control.CGangjwa;
 import sugangShincheong.PSelection.ListSelectionHandler;
 import valueObject.VDirectory;
+import valueObject.VGangjwa;
 
 public class PGangjwaSelection extends JTable {
 	private static final long serialVersionUID = 1L;
@@ -23,11 +25,12 @@ public class PGangjwaSelection extends JTable {
 		header.addElement("담당교수");
 		header.addElement("시간");
 
-		DefaultTableModel tableModel = new DefaultTableModel(header,0);
+		this.tableModel = new DefaultTableModel(header,0);
 		this.setModel(tableModel);
 	}
 	
 	public String initialize(String fileName) {
+		return this.getData(fileName);
 	}
 	
 
@@ -36,6 +39,7 @@ public class PGangjwaSelection extends JTable {
 	}
 	
 	public void update(String fileName) {
+		getData(fileName);
 	}
 
 	public String getData(String fileName) {
@@ -44,16 +48,15 @@ public class PGangjwaSelection extends JTable {
 		this.tableModel.setRowCount(0);
 		for (VGangjwa vGangjwa: this.vGangjwas) {
 			Vector<String> row = new Vector<String>();
-			row.add(vGangjwa.getName());
-			row.add(vGangjwa.getName());
-			row.add(vGangjwa.getName());
-			row.add(vGangjwa.getName());
+			row.add(vGangjwa.getNum());
+			row.add(vGangjwa.getTitle());
+			row.add(vGangjwa.getPro());
+			row.add(vGangjwa.getTime());
 			this.tableModel.addRow(row);
 		}
 		String selectedFileName = null;
-		if(vDirectories.size()>0) {
+		if(vGangjwas.size()>0) {
 			this.getSelectionModel().addSelectionInterval(0, 0);
-			selectedFileName = this.vDirectories.get(0).getFileName();
 		}
 		return selectedFileName;
 	}
