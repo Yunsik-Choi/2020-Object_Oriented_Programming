@@ -16,9 +16,9 @@ import valueObject.VDirectory;
 public class PHakgwaSelection extends JPanel {
 	private static final long serialVersionUID = 1L;
 
-	public PDirectory pCampus;
+	private PDirectory pCampus;
 	private PDirectory pCollege;
-	public PDirectory pHakgwa;
+	private PDirectory pHakgwa;
 	
 	private String fileName;
 	
@@ -52,28 +52,18 @@ public class PHakgwaSelection extends JPanel {
 	public void update(Object source) {
 		if(source.equals(this.pCampus.getSelectionModel())) {
 			int selectedRowIndex = this.pCampus.getSelectedRow();
-			fileName = this.pCollege.getData(this.pCampus.vDirectories.get(selectedRowIndex).getFileName());
-		} else if(source.equals(this.pCollege.getSelectionModel())) {
-			int selectedRowIndex = this.pCollege.getSelectedRow();
-			if(selectedRowIndex>=0) {
-				fileName = this.pHakgwa.getData(this.pCollege.vDirectories.get(selectedRowIndex).getFileName());
-			}
+			fileName = this.pCollege.getData(fileName);
+			fileName = this.pHakgwa.getData(fileName);
+		} else if(source.equals(this.pCampus.getSelectionModel())) {
+			
 		} else if(source.equals(this.pHakgwa.getSelectionModel())) {
-			int selectedRowIndex = this.pHakgwa.getSelectedRow();
-			if(selectedRowIndex>=0) {
-				fileName = this.pHakgwa.vDirectories.get(selectedRowIndex).getFileName();
-			}else {
-				fileName = this.pHakgwa.vDirectories.get(0).getFileName();
-			}
+			
 		}
 	}
-	
 	public class PDirectory extends JTable {
 		private static final long serialVersionUID = 1L;
 
 		private DefaultTableModel tableModel;
-		private Vector<VDirectory> vDirectories;
-
 		public PDirectory(String title, ListSelectionHandler listSelectionHandler) {
 			//attributes
 			this.getSelectionModel().addListSelectionListener(listSelectionHandler);
@@ -90,10 +80,8 @@ public class PHakgwaSelection extends JPanel {
 		}
 
 		public String getData(String fileName) {
-			this.tableModel.setRowCount(0);
 			CDirectory cDirectory = new CDirectory();
-			this.vDirectories = null;
-			this.vDirectories = cDirectory.getData(fileName);
+			Vector<VDirectory> vDirectories = cDirectory.getData(fileName);
 			for (VDirectory vDirectory: vDirectories) {
 				Vector<String> row = new Vector<String>();
 				row.add(vDirectory.getName());
@@ -105,11 +93,6 @@ public class PHakgwaSelection extends JPanel {
 			}
 			return null;
 		}
-	}
-
-	public String getFileName() {
-
-		return this.fileName;
 	}
 
 

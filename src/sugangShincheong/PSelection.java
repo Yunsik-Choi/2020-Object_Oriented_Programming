@@ -26,24 +26,19 @@ public class PSelection extends JPanel {
 	}
 	private void update(Object source) {
 		this.pHakgwaSelection.update(source);
-		if(source.equals(this.pHakgwaSelection.pHakgwa.getSelectionModel())){
-			String fileName = this.pHakgwaSelection.getFileName();
-			this.pGangjwaSelection.update(fileName);
-		}
+//		String fileName = this.pHakgwaSelection.getFileName();
+//		this.pGangjwaSelection.update(fileName);
 	}
 	
 	public class ListSelectionHandler implements ListSelectionListener{
 		@Override
 		public void valueChanged(ListSelectionEvent event) {
-			if(!event.getValueIsAdjusting()) {
-				update(event.getSource());
-			}
+			update(event.getSource());
 		}
 	}
 
 	public void initialize() {
 		this.pHakgwaSelection.initialize();
 		this.pGangjwaSelection.initialize();
-		this.pHakgwaSelection.pCampus.getSelectionModel().addSelectionInterval(0, 0);
 	}
 }
