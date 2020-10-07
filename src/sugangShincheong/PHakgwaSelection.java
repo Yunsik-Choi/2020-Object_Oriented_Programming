@@ -44,29 +44,43 @@ public class PHakgwaSelection extends JPanel {
 	}
 	
 	public void initialize() {
-		fileName = this.pCampus.initialize(fileName);
-		fileName = this.pCollege.initialize(fileName);
-		fileName = this.pHakgwa.initialize(fileName);
+		this.fileName = this.pCampus.initialize(this.fileName);
+		this.fileName = this.pCollege.initialize(this.fileName);
+		this.fileName = this.pHakgwa.initialize(this.fileName);
+	}
+	public String getFileName() {
+		return this.fileName;
 	}
 
 	public void update(Object source) {
 		if(source.equals(this.pCampus.getSelectionModel())) {
 			int selectedRowIndex = this.pCampus.getSelectedRow();
-			fileName = this.pCollege.getData(fileName);
-			fileName = this.pHakgwa.getData(fileName);
-		} else if(source.equals(this.pCampus.getSelectionModel())) {
-			
+			this.fileName = this.pCampus.getSelectedFileName();
+			this.fileName = this.pCollege.getData(this.fileName);
+			this.fileName = this.pHakgwa.getData(this.fileName);
+		} else if(source.equals(this.pCollege.getSelectionModel())) {
+			int selectedRowIndex = this.pCollege.getSelectedRow();
+			this.fileName = this.pCollege.getSelectedFileName();
+			this.fileName = this.pHakgwa.getData(this.fileName);
 		} else if(source.equals(this.pHakgwa.getSelectionModel())) {
-			
+			this.fileName = this.pHakgwa.getData(this.fileName);
 		}
 	}
 	public class PDirectory extends JTable {
 		private static final long serialVersionUID = 1L;
 
 		private DefaultTableModel tableModel;
+		private ListSelectionHandler listSelectionHandler;
+		Vector<VDirectory> vDirectories;
+		
+		public String initialize(String fileName) {
+			return this.getData(fileName);
+		}
+		
 		public PDirectory(String title, ListSelectionHandler listSelectionHandler) {
 			//attributes
-			this.getSelectionModel().addListSelectionListener(listSelectionHandler);
+			this.listSelectionHandler = listSelectionHandler;
+			this.getSelectionModel().addListSelectionListener(this.listSelectionHandler);
 			
 			//data model
 			Vector<String> header = new Vector<String>();
@@ -75,23 +89,29 @@ public class PHakgwaSelection extends JPanel {
 			this.setModel(tableModel);
 		}
 
-		public String initialize(String fileName) {
-			return this.getData(fileName);
+		public String getSelectedFileName() {
+			int selectedIndex = this.getSelectedRow();
+			String selectedFileName = this.vDirectories.get(selectedIndex).getFileName();
+			return selectedFileName;
 		}
 
 		public String getData(String fileName) {
+			this.getSelectionModel().removeListSelectionListener(this.listSelectionHandler);
 			CDirectory cDirectory = new CDirectory();
-			Vector<VDirectory> vDirectories = cDirectory.getData(fileName);
-			for (VDirectory vDirectory: vDirectories) {
+			this.vDirectories = cDirectory.getData(fileName);
+			this.tableModel.setRowCount(0);
+			for (VDirectory vDirectory: this.vDirectories) {
 				Vector<String> row = new Vector<String>();
 				row.add(vDirectory.getName());
 				this.tableModel.addRow(row);
 			}
+			String selectedFileName = null;
 			if(vDirectories.size()>0) {
 				this.getSelectionModel().addSelectionInterval(0, 0);
-				return vDirectories.get(0).getFileName();
+				selectedFileName = this.vDirectories.get(0).getFileName();
 			}
-			return null;
+			this.getSelectionModel().addListSelectionListener(this.listSelectionHandler);
+			return selectedFileName;
 		}
 	}
 
