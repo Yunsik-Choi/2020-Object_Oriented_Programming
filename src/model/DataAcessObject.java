@@ -62,21 +62,4 @@ public class DataAcessObject {
 		}
 		return mDirectories;
 	}
-
-	public Vector<MGangjwa> getGangjwas(String fileName) {
-		Vector<MGangjwa> mGangjwas = new Vector<MGangjwa>();
-		try {
-			Scanner scanner = new Scanner(new File("lectureInfo/" + fileName));
-			
-			while(scanner.hasNext()) {
-				MGangjwa mGangjwa = new MGangjwa(scanner);
-				mGangjwa.read();
-				mGangjwas.add(mGangjwa);
-			}
-			scanner.close();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-		return mGangjwas;
-	}
 }
