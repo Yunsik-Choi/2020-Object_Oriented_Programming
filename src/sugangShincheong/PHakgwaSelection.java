@@ -63,7 +63,7 @@ public class PHakgwaSelection extends JPanel {
 			this.fileName = this.pCollege.getSelectedFileName();
 			this.fileName = this.pHakgwa.getData(this.fileName);
 		} else if(source.equals(this.pHakgwa.getSelectionModel())) {
-			this.fileName = this.pHakgwa.getData(this.fileName);
+			this.fileName = this.pHakgwa.getSelectedFileName();
 		}
 	}
 	public class PDirectory extends JTable {
@@ -79,6 +79,7 @@ public class PHakgwaSelection extends JPanel {
 		
 		public PDirectory(String title, ListSelectionHandler listSelectionHandler) {
 			//attributes
+			this.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 			this.listSelectionHandler = listSelectionHandler;
 			this.getSelectionModel().addListSelectionListener(this.listSelectionHandler);
 			
