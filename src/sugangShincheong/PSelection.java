@@ -47,7 +47,7 @@ public class PSelection extends JPanel {
 			update(event.getSource());
 		}
 	}
-
+	
 	public Vector<VGangjwa> getSelectedGangjwas() {
 		return pGangjwaSelection.getSelectedGangjwas();
 	}
