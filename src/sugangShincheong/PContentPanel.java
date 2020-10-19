@@ -5,7 +5,6 @@ import java.util.Vector;
 
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 
 import valueObject.VGangjwa;
 
@@ -22,23 +21,21 @@ public class PContentPanel extends JPanel {
 	public PContentPanel() {
 		this.setLayout(new BoxLayout(this,BoxLayout.X_AXIS));
 		this.ActionHandler = new ActionHandler();
-
+		
 		this.pSelection = new PSelection();
 		this.add(this.pSelection);
 		
 		this.pMove1 = new PMove(this.ActionHandler);
 		this.add(this.pMove1);
 		
-		this.pMiridamgi = new PResult("미리담기");
-		JScrollPane jScrollPane1 = new JScrollPane(this.pMiridamgi);
-		this.add(jScrollPane1);
+		this.pMiridamgi = new PResult();
+		this.add(this.pMiridamgi);
 		
 		this.pMove2 = new PMove(this.ActionHandler);
 		this.add(this.pMove2);
 		
-		this.pShincheong = new PResult("수강신청");
-		JScrollPane jScrollPane2 = new JScrollPane(this.pShincheong);
-		this.add(jScrollPane2);
+		this.pShincheong = new PResult();
+		this.add(this.pShincheong);
 	}
 
 	public void initialize() {

@@ -3,9 +3,6 @@ package sugangShincheong;
 import java.util.Vector;
 
 import javax.swing.JTable;
-import javax.swing.ListSelectionModel;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 import control.CDirectory;
@@ -19,8 +16,7 @@ public class PGangjwaSelection extends JTable {
 	
 	private DefaultTableModel tableModel;
 	private Vector<VGangjwa> vGangjwas;
-	private Vector<VGangjwa> selectedGangjwas;
-	private CGangjwa cGangjwa;
+	
 	public PGangjwaSelection() {
 		//data model
 		Vector<String> header = new Vector<String>();
@@ -36,14 +32,11 @@ public class PGangjwaSelection extends JTable {
 	
 	public void initialize(String fileName) {
 		this.getData(fileName);
-		ListSelectionHandler listSelectionHandler = new ListSelectionHandler();
-		this.getSelectionModel().addListSelectionListener(listSelectionHandler);
-		this.setRowSelectionAllowed(true);
-		this.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 	}
 	
 	public Vector<VGangjwa> getSelectedGangjwas() {
-		return this.selectedGangjwas;
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	public void update(String fileName) {
@@ -51,7 +44,7 @@ public class PGangjwaSelection extends JTable {
 	}
 
 	public String getData(String fileName) {
-		this.cGangjwa = new CGangjwa();
+		CGangjwa cGangjwa = new CGangjwa();
 		this.vGangjwas = cGangjwa.getData(fileName);
 		this.tableModel.setRowCount(0);
 		for (VGangjwa vGangjwa: this.vGangjwas) {
@@ -66,22 +59,8 @@ public class PGangjwaSelection extends JTable {
 		}
 		return null;
 	}
-	
-	public class ListSelectionHandler implements ListSelectionListener{
-		
-		@Override
-		public void valueChanged(ListSelectionEvent e) {
-			// TODO Auto-generated method stub
-			if(!e.getValueIsAdjusting()) {
-				int[] selectedRows = getSelectedRows();
-				Vector<VGangjwa> gangjwas = new Vector<VGangjwa>();
-				for(int i: selectedRows) {
-					gangjwas.add(vGangjwas.get(i));
-				}
-				selectedGangjwas = gangjwas;
-			}
-		}
-		
-	}
+
+
+
 
 }
