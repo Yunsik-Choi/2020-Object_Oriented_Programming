@@ -5,6 +5,7 @@ import java.util.Vector;
 
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 import valueObject.VGangjwa;
 
@@ -29,13 +30,15 @@ public class PContentPanel extends JPanel {
 		this.add(this.pMove1);
 		
 		this.pMiridamgi = new PResult();
-		this.add(this.pMiridamgi);
+		JScrollPane scrollPane = new JScrollPane(this.pMiridamgi);
+		this.add(scrollPane);
 		
 		this.pMove2 = new PMove(this.ActionHandler);
 		this.add(this.pMove2);
 		
 		this.pShincheong = new PResult();
-		this.add(this.pShincheong);
+		scrollPane = new JScrollPane(this.pShincheong);
+		this.add(scrollPane);
 	}
 
 	public void initialize() {
@@ -45,25 +48,38 @@ public class PContentPanel extends JPanel {
 		this.pMove2.initialize();
 		this.pShincheong.initialize();
 	}
+	
+	private Vector<VGangjwa> removeDuplicatedgangjwas(Vector<VGangjwa> vSelectedGangjwas) {
+		Vector<VGangjwa> vSingchengGangjwas= this.pShincheong.getGangjwas();
+		for(int index=vSelectedGangjwas.size()-1;index>=0;index--) {
+			for(VGangjwa vSingchengGangjwa: vSingchengGangjwas) {
+				if(vSelectedGangjwas.get(index).getId().equals(vSingchengGangjwa.getId())){
+					vSelectedGangjwas.remove(index);
+				}
+			}
+		}
+		return vSelectedGangjwas;
+	}
 	private void update(Object source) {
-		Vector<VGangjwa> vGangjwas;
+		Vector<VGangjwa> vSelectedGangjwas;
 		if(source.equals(this.pMove1.getMoveRightButton())) {
-			vGangjwas =  this.pSelection.getSelectedGangjwas();
-			this.pMiridamgi.addGangjwas(vGangjwas);
+			vSelectedGangjwas =  this.pSelection.getSelectedGangjwas();
+			vSelectedGangjwas = this.removeDuplicatedgangjwas(vSelectedGangjwas);
+			this.pMiridamgi.addGangjwas(vSelectedGangjwas);
 		}
 		else if(source.equals(this.pMove1.getMoveLeftButton())) {
-			vGangjwas = this.pMiridamgi.removeGangjwa();
+			vSelectedGangjwas = this.pMiridamgi.removeGangjwa();
 		}
 		else if(source.equals(this.pMove2.getMoveRightButton())) {
-			vGangjwas =  this.pMiridamgi.removeGangjwa();
-			this.pShincheong.addGangjwas(vGangjwas);
+			vSelectedGangjwas =  this.pMiridamgi.removeGangjwa();
+			this.pShincheong.addGangjwas(vSelectedGangjwas);
 		}else if(source.equals(this.pMove2.getMoveLeftButton())) {
-			vGangjwas = this.pShincheong.removeGangjwa();
-			this.pMiridamgi.addGangjwas(vGangjwas);
+			vSelectedGangjwas = this.pShincheong.removeGangjwa();
+			this.pMiridamgi.addGangjwas(vSelectedGangjwas);
 		}
 	}
-	public class ActionHandler implements ActionListener{
 
+	public class ActionHandler implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent event) {
 			// TODO Auto-generated method stub

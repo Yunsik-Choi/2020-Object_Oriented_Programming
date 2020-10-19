@@ -35,8 +35,12 @@ public class PGangjwaSelection extends JTable {
 	}
 	
 	public Vector<VGangjwa> getSelectedGangjwas() {
-		// TODO Auto-generated method stub
-		return null;
+		Vector<VGangjwa> vSelectedGangjwas = new Vector<VGangjwa>();
+		int[] indices = this.getSelectedRows();
+		for(int index:indices) {
+			vSelectedGangjwas.add(this.vGangjwas.get(index));
+		}
+		return vSelectedGangjwas;
 	}
 	
 	public void update(String fileName) {
@@ -56,6 +60,7 @@ public class PGangjwaSelection extends JTable {
 			this.tableModel.addRow(row);
 		}
 		if(this.vGangjwas.size()>0) {
+			this.getSelectionModel().addSelectionInterval(0, 0);
 		}
 		return null;
 	}
