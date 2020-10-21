@@ -5,9 +5,7 @@ import java.util.Vector;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import control.CResult;
 import valueObject.VGangjwa;
-import valueObject.VUser;
 
 public class PResult extends JTable {
 	private static final long serialVersionUID = 1L;
@@ -26,10 +24,8 @@ public class PResult extends JTable {
 		this.vGangjwas = new Vector<VGangjwa>();
 	}
 
-	public void initialize(Vector<VGangjwa> vector) {
+	public void initialize() {
 		// TODO Auto-generated method stub
-		this.vGangjwas = vector;
-		updateTableData();
 		
 	}
 	private void moveSelectedGangjwas(Vector<VGangjwa> vSelectedGangjwas) {
