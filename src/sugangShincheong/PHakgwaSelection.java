@@ -7,10 +7,10 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 import control.CDirectory;
-import sugangShincheong.PSelection.ListSelectionHandler;
 import valueObject.VDirectory;
 
 public class PHakgwaSelection extends JPanel {
@@ -22,7 +22,7 @@ public class PHakgwaSelection extends JPanel {
 	
 	private String fileName;
 	
-	public PHakgwaSelection(ListSelectionHandler listSelectionHandler) {
+	public PHakgwaSelection(ListSelectionListener listSelectionHandler) {
 		this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 		this.fileName = "root";
 		
@@ -52,7 +52,7 @@ public class PHakgwaSelection extends JPanel {
 		return this.fileName;
 	}
 
-	public void update(Object source) {
+	public String update(Object source) {
 		if(source.equals(this.pCampus.getSelectionModel())) {
 			int selectedRowIndex = this.pCampus.getSelectedRow();
 			this.fileName = this.pCampus.getSelectedFileName();
@@ -65,19 +65,20 @@ public class PHakgwaSelection extends JPanel {
 		} else if(source.equals(this.pHakgwa.getSelectionModel())) {
 			this.fileName = this.pHakgwa.getSelectedFileName();
 		}
+		return this.fileName;
 	}
 	public class PDirectory extends JTable {
 		private static final long serialVersionUID = 1L;
 
 		private DefaultTableModel tableModel;
-		private ListSelectionHandler listSelectionHandler;
+		private ListSelectionListener listSelectionHandler;
 		Vector<VDirectory> vDirectories;
 		
 		public String initialize(String fileName) {
 			return this.getData(fileName);
 		}
 		
-		public PDirectory(String title, ListSelectionHandler listSelectionHandler) {
+		public PDirectory(String title, ListSelectionListener listSelectionHandler) {
 			//attributes
 			this.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 			this.listSelectionHandler = listSelectionHandler;

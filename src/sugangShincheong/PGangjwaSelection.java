@@ -5,10 +5,7 @@ import java.util.Vector;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import control.CDirectory;
 import control.CGangjwa;
-import sugangShincheong.PSelection.ListSelectionHandler;
-import valueObject.VDirectory;
 import valueObject.VGangjwa;
 
 public class PGangjwaSelection extends JTable {
@@ -31,7 +28,7 @@ public class PGangjwaSelection extends JTable {
 	}
 	
 	public void initialize(String fileName) {
-		this.getData(fileName);
+		this.update(fileName);
 	}
 	
 	public Vector<VGangjwa> getSelectedGangjwas() {
@@ -43,13 +40,15 @@ public class PGangjwaSelection extends JTable {
 		return vSelectedGangjwas;
 	}
 	
-	public void update(String fileName) {
-		this.getData(fileName);
+	
+	public Vector<VGangjwa> getData(String fileName) {
+		CGangjwa cGangjwa = new CGangjwa();
+		Vector<VGangjwa> newGangjwas = cGangjwa.getData(fileName);
+		return newGangjwas;	
 	}
 
-	public String getData(String fileName) {
-		CGangjwa cGangjwa = new CGangjwa();
-		this.vGangjwas = cGangjwa.getData(fileName);
+	public void updateTableContents(Vector<VGangjwa> newGangjwas) {
+		this.vGangjwas = newGangjwas;
 		this.tableModel.setRowCount(0);
 		for (VGangjwa vGangjwa: this.vGangjwas) {
 			Vector<String> row = new Vector<String>();
@@ -62,10 +61,12 @@ public class PGangjwaSelection extends JTable {
 		if(this.vGangjwas.size()>0) {
 			this.getSelectionModel().addSelectionInterval(0, 0);
 		}
-		return null;
 	}
-
-
-
+	
+	public void update(String fileName) {
+		Vector<VGangjwa> newGangjwas = this.getData(fileName);
+		
+		this.updateTableContents(newGangjwas);
+	}
 
 }

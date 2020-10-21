@@ -6,6 +6,8 @@ import java.util.Vector;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import valueObject.VGangjwa;
 
@@ -23,7 +25,8 @@ public class PContentPanel extends JPanel {
 		this.setLayout(new BoxLayout(this,BoxLayout.X_AXIS));
 		this.ActionHandler = new ActionHandler();
 		
-		this.pSelection = new PSelection();
+		ListSelectionListener listSelectionHandler = new ListSelectionHandler();
+		this.pSelection = new PSelection(listSelectionHandler);
 		this.add(this.pSelection);
 		
 		this.pMove1 = new PMove(this.ActionHandler);
@@ -48,23 +51,34 @@ public class PContentPanel extends JPanel {
 		this.pMove2.initialize();
 		this.pShincheong.initialize();
 	}
-	
-	private Vector<VGangjwa> removeDuplicatedgangjwas(Vector<VGangjwa> vSelectedGangjwas) {
-		Vector<VGangjwa> vSingchengGangjwas= this.pShincheong.getGangjwas();
-		for(int index=vSelectedGangjwas.size()-1;index>=0;index--) {
-			for(VGangjwa vSingchengGangjwa: vSingchengGangjwas) {
-				if(vSelectedGangjwas.get(index).getId().equals(vSingchengGangjwa.getId())){
-					vSelectedGangjwas.remove(index);
-				}
-			}
-		}
-		return vSelectedGangjwas;
+	////////////////////////////////////
+	//table event handling
+	/////////////////////
+	private void updateGangjwas(Object source) {
+		String fileName = this.pSelection.getHakgwaSelection().update(source);
+		Vector<VGangjwa> vGangjwas = this.pSelection.getGangjwaSelection().getData(fileName);
+		vGangjwas = this.pMiridamgi.removeDuplicated(vGangjwas);
+		vGangjwas = this.pShincheong.removeDuplicated(vGangjwas);
+		this.pSelection.getGangjwaSelection().updateTableContents(vGangjwas);
 	}
-	private void update(Object source) {
+	
+	public class ListSelectionHandler implements ListSelectionListener{
+		@Override
+		public void valueChanged(ListSelectionEvent event) {
+			updateGangjwas(event.getSource());
+		}
+		
+	}
+	
+	////////////////////////////////////
+	//button event handling
+	/////////////////////
+	private void moveGangjwas(Object source) {
 		Vector<VGangjwa> vSelectedGangjwas;
 		if(source.equals(this.pMove1.getMoveRightButton())) {
 			vSelectedGangjwas =  this.pSelection.getSelectedGangjwas();
-			vSelectedGangjwas = this.removeDuplicatedgangjwas(vSelectedGangjwas);
+			vSelectedGangjwas = this.pMiridamgi.removeDuplicated(vSelectedGangjwas);
+			vSelectedGangjwas = this.pShincheong.removeDuplicated(vSelectedGangjwas);
 			this.pMiridamgi.addGangjwas(vSelectedGangjwas);
 		}
 		else if(source.equals(this.pMove1.getMoveLeftButton())) {
@@ -83,7 +97,7 @@ public class PContentPanel extends JPanel {
 		@Override
 		public void actionPerformed(ActionEvent event) {
 			// TODO Auto-generated method stub
-			update(event.getSource());
+			moveGangjwas(event.getSource());
 		}
 		
 	}

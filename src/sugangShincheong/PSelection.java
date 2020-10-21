@@ -3,10 +3,12 @@ package sugangShincheong;
 import java.util.Vector;
 
 import javax.swing.BoxLayout;
+import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.plaf.basic.BasicListUI.ListSelectionHandler;
 
 import valueObject.VGangjwa;
 
@@ -16,9 +18,8 @@ public class PSelection extends JPanel {
 	private PHakgwaSelection pHakgwaSelection;
 	private PGangjwaSelection pGangjwaSelection;
 	
-	public PSelection() {
+	public PSelection(ListSelectionListener listSelectionHandler) {
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-		ListSelectionHandler listSelectionHandler = new ListSelectionHandler();
 		
 		this.pHakgwaSelection = new PHakgwaSelection(listSelectionHandler);
 		this.add(pHakgwaSelection);
@@ -34,23 +35,19 @@ public class PSelection extends JPanel {
 		String fileName = this.pHakgwaSelection.getFileName();
 		this.pGangjwaSelection.initialize(fileName);
 	}
-	
-	private void update(Object source) {
-		this.pHakgwaSelection.update(source);
-		String fileName = this.pHakgwaSelection.getFileName();
-		this.pGangjwaSelection.update(fileName);
+	public PHakgwaSelection getHakgwaSelection() {
+		return this.pHakgwaSelection;
+	}
+	public PGangjwaSelection getGangjwaSelection() {
+		return this.pGangjwaSelection;
 	}
 	
-	public class ListSelectionHandler implements ListSelectionListener{
-		@Override
-		public void valueChanged(ListSelectionEvent event) {
-			update(event.getSource());
-		}
-	}
 
 	public Vector<VGangjwa> getSelectedGangjwas() {
 		return pGangjwaSelection.getSelectedGangjwas();
 	}
+
+
 
 
 }
