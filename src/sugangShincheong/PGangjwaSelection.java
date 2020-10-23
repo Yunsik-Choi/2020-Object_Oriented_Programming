@@ -12,7 +12,7 @@ public class PGangjwaSelection extends JTable {
 	private static final long serialVersionUID = 1L;
 	
 	private DefaultTableModel tableModel;
-	private Vector<VGangjwa> vGangjwas;
+	public Vector<VGangjwa> vGangjwas;
 	
 	public PGangjwaSelection() {
 		//data model

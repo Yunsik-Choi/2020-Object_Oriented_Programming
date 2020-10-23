@@ -1,6 +1,8 @@
 package valueObject;
 
-public class VDirectory {
+import java.io.Serializable;
+
+public class VDirectory implements Serializable{
 	private String name;
 	private String fileName;
 	

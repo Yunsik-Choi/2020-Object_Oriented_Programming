@@ -1,6 +1,7 @@
 package sugangShincheong;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.Serializable;
 import java.util.Vector;
 
 import javax.swing.BoxLayout;
@@ -9,17 +10,20 @@ import javax.swing.JScrollPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import control.CInfo;
 import valueObject.VGangjwa;
+import valueObject.VUser;
 
-public class PContentPanel extends JPanel {
+public class PContentPanel extends JPanel implements Serializable{
 	private static final long serialVersionUID = 1L;
 
-	private PSelection pSelection;
+	public PSelection pSelection;
 	private PMove pMove1;
-	private PResult pMiridamgi;
+	public PResult pMiridamgi;
 	private PMove pMove2;
-	private PResult pShincheong;
-	
+	public PResult pShincheong;
+	private CInfo cInfo;
+
 	private ActionListener ActionHandler;
 	public PContentPanel() {
 		this.setLayout(new BoxLayout(this,BoxLayout.X_AXIS));
@@ -44,12 +48,14 @@ public class PContentPanel extends JPanel {
 		this.add(scrollPane);
 	}
 
-	public void initialize() {
+	public void initialize(VUser vUser) {
 		this.pSelection.initialize();
 		this.pMove1.initialize();
 		this.pMiridamgi.initialize();
 		this.pMove2.initialize();
 		this.pShincheong.initialize();
+		this.cInfo = new CInfo(vUser);
+		this.cInfo.load(this, vUser);
 	}
 	////////////////////////////////////
 	//table event handling
@@ -60,9 +66,10 @@ public class PContentPanel extends JPanel {
 		vGangjwas = this.pMiridamgi.removeDuplicated(vGangjwas);
 		vGangjwas = this.pShincheong.removeDuplicated(vGangjwas);
 		this.pSelection.getGangjwaSelection().updateTableContents(vGangjwas);
+		cInfo.save(this);
 	}
 	
-	public class ListSelectionHandler implements ListSelectionListener{
+	public class ListSelectionHandler implements ListSelectionListener,Serializable{
 		@Override
 		public void valueChanged(ListSelectionEvent event) {
 			updateGangjwas(event.getSource());
@@ -91,9 +98,11 @@ public class PContentPanel extends JPanel {
 			vSelectedGangjwas = this.pShincheong.removeGangjwa();
 			this.pMiridamgi.addGangjwas(vSelectedGangjwas);
 		}
+		this.updateGangjwas(source);
+		cInfo.save(this);
 	}
 
-	public class ActionHandler implements ActionListener{
+	public class ActionHandler implements ActionListener,Serializable{
 		@Override
 		public void actionPerformed(ActionEvent event) {
 			// TODO Auto-generated method stub

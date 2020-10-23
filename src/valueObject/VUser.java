@@ -1,8 +1,9 @@
 package valueObject;
 
+import java.io.Serializable;
 import java.util.Scanner;
 
-public class VUser {
+public class VUser implements Serializable{
 	private String userId;
 	private String name;
 	private String address;
