@@ -2,8 +2,12 @@ package model;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.Vector;
+
+import valueObject.VGangjwa;
 
 public class DataAcessObject {
 
@@ -67,6 +71,38 @@ public class DataAcessObject {
 		Vector<MGangjwa> mGangjwas = new Vector<MGangjwa>();
 		try {
 			Scanner scanner = new Scanner(new File("lectureInfo/" + fileName));
+			
+			while(scanner.hasNext()) {
+				MGangjwa mGangjwa = new MGangjwa(scanner);
+				mGangjwa.read();
+				mGangjwas.add(mGangjwa);
+			}
+			scanner.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		return mGangjwas;
+	}
+
+	public void saveResult(String fileName, Vector<VGangjwa> vGangjwas) {
+		try {
+			FileWriter fileWriter = new FileWriter(new File("userInfo/"+fileName));
+			for(VGangjwa vGangjwa: vGangjwas) {
+				MGangjwa mGangjwa = new MGangjwa(fileWriter,vGangjwa);
+				mGangjwa.save();
+			}
+			fileWriter.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+
+	public Vector<MGangjwa> getResult(String fileName) {
+		Vector<MGangjwa> mGangjwas = new Vector<MGangjwa>();
+		try {
+			Scanner scanner = new Scanner(new File("userInfo/" + fileName));
 			
 			while(scanner.hasNext()) {
 				MGangjwa mGangjwa = new MGangjwa(scanner);

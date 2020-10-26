@@ -10,10 +10,12 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import valueObject.VGangjwa;
+import valueObject.VUser;
 
 public class PContentPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 
+	private VUser vUser;
 	private PSelection pSelection;
 	private PMove pMove1;
 	private PResult pMiridamgi;
@@ -44,12 +46,18 @@ public class PContentPanel extends JPanel {
 		this.add(scrollPane);
 	}
 
-	public void initialize() {
+	public void initialize(VUser vUser) {
+		this.vUser = vUser;
 		this.pSelection.initialize();
 		this.pMove1.initialize();
-		this.pMiridamgi.initialize();
+		this.pMiridamgi.initialize(vUser.getUserId()+"M");
 		this.pMove2.initialize();
-		this.pShincheong.initialize();
+		this.pShincheong.initialize(vUser.getUserId()+"S");
+	}
+	
+	public void save() {
+		this.pMiridamgi.save(vUser.getUserId()+"M");
+		this.pShincheong.save(vUser.getUserId()+"S");
 	}
 	////////////////////////////////////
 	//table event handling
@@ -101,4 +109,6 @@ public class PContentPanel extends JPanel {
 		}
 		
 	}
+
+
 }
