@@ -1,6 +1,5 @@
 package sugangShincheong;
 
-import java.io.Serializable;
 import java.util.Vector;
 
 import javax.swing.JTable;
@@ -8,11 +7,11 @@ import javax.swing.table.DefaultTableModel;
 
 import valueObject.VGangjwa;
 
-public class PResult extends JTable implements Serializable{
+public class PResult extends JTable {
 	private static final long serialVersionUID = 1L;
 
-	public DefaultTableModel tableModel;
-	public Vector<VGangjwa> vGangjwas;
+	private DefaultTableModel tableModel;
+	private Vector<VGangjwa> vGangjwas;
 	
 	public PResult() {
 		Vector<String> header = new Vector<String>();
@@ -28,11 +27,6 @@ public class PResult extends JTable implements Serializable{
 	public void initialize() {
 		// TODO Auto-generated method stub
 		
-	}
-	
-	public void setGangjwas(Vector<VGangjwa> vec) {
-		this.vGangjwas = vec;
-		updateTableData();
 	}
 	
 	public Vector<VGangjwa> removeDuplicated(Vector<VGangjwa> vSelectedGangjwas) {
@@ -58,7 +52,6 @@ public class PResult extends JTable implements Serializable{
 		if(this.vGangjwas.size()>0) {
 			this.getSelectionModel().addSelectionInterval(0, 0);
 		}
-		
 	}
 	
 	public void addGangjwas(Vector<VGangjwa> vSelectedGangjwas) {

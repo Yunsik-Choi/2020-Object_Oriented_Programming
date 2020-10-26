@@ -1,8 +1,6 @@
 package valueObject;
 
-import java.io.Serializable;
-
-public class VGangjwa implements Serializable{
+public class VGangjwa {
 	private String id;
 	private String name;
 	private String lecturer;

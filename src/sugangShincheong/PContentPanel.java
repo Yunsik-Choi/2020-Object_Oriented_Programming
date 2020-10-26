@@ -1,7 +1,6 @@
 package sugangShincheong;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.Serializable;
 import java.util.Vector;
 
 import javax.swing.BoxLayout;
@@ -10,20 +9,17 @@ import javax.swing.JScrollPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import control.CInfo;
 import valueObject.VGangjwa;
-import valueObject.VUser;
 
-public class PContentPanel extends JPanel implements Serializable{
+public class PContentPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 
-	public PSelection pSelection;
+	private PSelection pSelection;
 	private PMove pMove1;
-	public PResult pMiridamgi;
+	private PResult pMiridamgi;
 	private PMove pMove2;
-	public PResult pShincheong;
-	private CInfo cInfo;
-
+	private PResult pShincheong;
+	
 	private ActionListener ActionHandler;
 	public PContentPanel() {
 		this.setLayout(new BoxLayout(this,BoxLayout.X_AXIS));
@@ -48,14 +44,12 @@ public class PContentPanel extends JPanel implements Serializable{
 		this.add(scrollPane);
 	}
 
-	public void initialize(VUser vUser) {
+	public void initialize() {
 		this.pSelection.initialize();
 		this.pMove1.initialize();
 		this.pMiridamgi.initialize();
 		this.pMove2.initialize();
 		this.pShincheong.initialize();
-		this.cInfo = new CInfo(vUser);
-		this.cInfo.load(this, vUser);
 	}
 	////////////////////////////////////
 	//table event handling
@@ -66,10 +60,9 @@ public class PContentPanel extends JPanel implements Serializable{
 		vGangjwas = this.pMiridamgi.removeDuplicated(vGangjwas);
 		vGangjwas = this.pShincheong.removeDuplicated(vGangjwas);
 		this.pSelection.getGangjwaSelection().updateTableContents(vGangjwas);
-		cInfo.save(this);
 	}
 	
-	public class ListSelectionHandler implements ListSelectionListener,Serializable{
+	public class ListSelectionHandler implements ListSelectionListener{
 		@Override
 		public void valueChanged(ListSelectionEvent event) {
 			updateGangjwas(event.getSource());
@@ -98,11 +91,9 @@ public class PContentPanel extends JPanel implements Serializable{
 			vSelectedGangjwas = this.pShincheong.removeGangjwa();
 			this.pMiridamgi.addGangjwas(vSelectedGangjwas);
 		}
-		this.updateGangjwas(source);
-		cInfo.save(this);
 	}
 
-	public class ActionHandler implements ActionListener,Serializable{
+	public class ActionHandler implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent event) {
 			// TODO Auto-generated method stub

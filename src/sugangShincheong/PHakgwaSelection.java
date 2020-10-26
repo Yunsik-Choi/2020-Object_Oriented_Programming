@@ -3,7 +3,6 @@ package sugangShincheong;
 import java.util.Vector;
 
 import javax.swing.BoxLayout;
-import javax.swing.CellEditor;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -17,9 +16,9 @@ import valueObject.VDirectory;
 public class PHakgwaSelection extends JPanel {
 	private static final long serialVersionUID = 1L;
 
-	public PDirectory pCampus;
-	public PDirectory pCollege;
-	public PDirectory pHakgwa;
+	private PDirectory pCampus;
+	private PDirectory pCollege;
+	private PDirectory pHakgwa;
 	
 	private String fileName;
 	
@@ -73,7 +72,7 @@ public class PHakgwaSelection extends JPanel {
 
 		private DefaultTableModel tableModel;
 		private ListSelectionListener listSelectionHandler;
-		private Vector<VDirectory> vDirectories;
+		Vector<VDirectory> vDirectories;
 		
 		public String initialize(String fileName) {
 			return this.getData(fileName);
@@ -116,7 +115,6 @@ public class PHakgwaSelection extends JPanel {
 			this.getSelectionModel().addListSelectionListener(this.listSelectionHandler);
 			return selectedFileName;
 		}
-		
 	}
 
 

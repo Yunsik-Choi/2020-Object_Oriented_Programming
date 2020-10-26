@@ -28,7 +28,7 @@ public class PSugangShincheongPanel extends JPanel {
 
 	public void initialize(VUser vUser) {
 		this.pHeaderPanel.initialize(vUser);
-		this.pContentPanel.initialize(vUser);
+		this.pContentPanel.initialize();
 		this.pFooterPanel.initialize();
 	}
 
