@@ -12,8 +12,8 @@ public class PResult extends JTable {
 	private static final long serialVersionUID = 1L;
 
 	private DefaultTableModel tableModel;
-	public Vector<VGangjwa> vGangjwas;
-
+	private Vector<VGangjwa> vGangjwas;
+	
 	public PResult() {
 		Vector<String> header = new Vector<String>();
 		header.addElement("°­ÁÂ¹øÈ£");

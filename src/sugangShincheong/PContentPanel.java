@@ -53,11 +53,6 @@ public class PContentPanel extends JPanel {
 		this.pMiridamgi.initialize(vUser.getUserId()+"M");
 		this.pMove2.initialize();
 		this.pShincheong.initialize(vUser.getUserId()+"S");
-		Vector<VGangjwa> vGangjwas = this.pSelection.getGangjwaSelection().getData("englishYG");
-		vGangjwas = this.pMiridamgi.removeDuplicated(vGangjwas);
-		vGangjwas = this.pShincheong.removeDuplicated(vGangjwas);
-		this.pSelection.getGangjwaSelection().updateTableContents(vGangjwas);
-		
 	}
 	
 	public void save() {
@@ -104,7 +99,6 @@ public class PContentPanel extends JPanel {
 			vSelectedGangjwas = this.pShincheong.removeGangjwa();
 			this.pMiridamgi.addGangjwas(vSelectedGangjwas);
 		}
-		this.updateGangjwas(source);
 	}
 
 	public class ActionHandler implements ActionListener{
