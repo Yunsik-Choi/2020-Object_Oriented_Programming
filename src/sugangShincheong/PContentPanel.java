@@ -53,6 +53,11 @@ public class PContentPanel extends JPanel {
 		this.pMiridamgi.initialize(vUser.getUserId()+"M");
 		this.pMove2.initialize();
 		this.pShincheong.initialize(vUser.getUserId()+"S");
+		
+		Vector<VGangjwa> vGangjwas = this.pSelection.getGangjwas();
+		vGangjwas = this.pMiridamgi.removeDuplicated(vGangjwas);
+		vGangjwas = this.pShincheong.removeDuplicated(vGangjwas);
+		this.pSelection.getGangjwaSelection().updateTableContents(vGangjwas);
 	}
 	
 	public void save() {
@@ -88,9 +93,13 @@ public class PContentPanel extends JPanel {
 			vSelectedGangjwas = this.pMiridamgi.removeDuplicated(vSelectedGangjwas);
 			vSelectedGangjwas = this.pShincheong.removeDuplicated(vSelectedGangjwas);
 			this.pMiridamgi.addGangjwas(vSelectedGangjwas);
+			
+			this.updateGangjwas(source);
 		}
 		else if(source.equals(this.pMove1.getMoveLeftButton())) {
 			vSelectedGangjwas = this.pMiridamgi.removeGangjwa();
+			
+			this.updateGangjwas(source);
 		}
 		else if(source.equals(this.pMove2.getMoveRightButton())) {
 			vSelectedGangjwas =  this.pMiridamgi.removeGangjwa();

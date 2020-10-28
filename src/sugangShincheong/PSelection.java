@@ -47,6 +47,10 @@ public class PSelection extends JPanel {
 		return pGangjwaSelection.getSelectedGangjwas();
 	}
 
+	public Vector<VGangjwa> getGangjwas() {
+		return this.pGangjwaSelection.getGangjwas();
+	}
+
 
 
 

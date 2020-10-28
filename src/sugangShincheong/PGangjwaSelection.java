@@ -30,6 +30,9 @@ public class PGangjwaSelection extends JTable {
 	public void initialize(String fileName) {
 		this.update(fileName);
 	}
+	public Vector<VGangjwa> getGangjwas() {
+		return this.vGangjwas;
+	}
 	
 	public Vector<VGangjwa> getSelectedGangjwas() {
 		Vector<VGangjwa> vSelectedGangjwas = new Vector<VGangjwa>();
@@ -68,5 +71,7 @@ public class PGangjwaSelection extends JTable {
 		
 		this.updateTableContents(newGangjwas);
 	}
+
+
 
 }
