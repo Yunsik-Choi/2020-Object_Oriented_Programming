@@ -19,7 +19,10 @@ public class PMainFrame extends JFrame {
 	//constructor
 	public PMainFrame() {
 		// set attributes
-		this.setSize(Constants.EMainFrame.WIDTH.getSize(),Constants.EMainFrame.HEIGHT.getSize());
+		this.setSize(
+				Constants.EMainFrame.width.getInt(),
+				Constants.EMainFrame.height.getInt()
+		);
 		this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		

@@ -9,10 +9,13 @@ import valueObject.VUser;
 public class Main {
 
 	private PLoginDialog pLoginDialog;
+	private ActionHandler actionHandler;
+	
 	private PMainFrame pMainFrame;
+
 	
 	public Main() {
-		ActionHandler actionHandler = new ActionHandler();
+		this.actionHandler = new ActionHandler();
 		this.pLoginDialog = new PLoginDialog(actionHandler);
 		this.pLoginDialog.setVisible(true);
 	}
