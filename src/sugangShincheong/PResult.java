@@ -13,6 +13,7 @@ public class PResult extends JTable {
 
 	private DefaultTableModel tableModel;
 	private Vector<VGangjwa> vGangjwas;
+	private CResult cResult;
 	
 	public PResult() {
 		Vector<String> header = new Vector<String>();
@@ -23,10 +24,11 @@ public class PResult extends JTable {
 		this.setModel(this.tableModel);
 		
 		this.vGangjwas = new Vector<VGangjwa>();
+		this.cResult = new CResult();
 	}
 
 	public void initialize(String fileName) {
-		CResult cResult = new CResult();
+		
 		this.vGangjwas = cResult.get(fileName);
 		this.updateTableData();
 	}

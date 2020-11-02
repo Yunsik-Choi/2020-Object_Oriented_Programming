@@ -22,6 +22,8 @@ public class PHakgwaSelection extends JPanel {
 	
 	private String fileName;
 	
+	private CDirectory cDirectory;
+	
 	public PHakgwaSelection(ListSelectionListener listSelectionHandler) {
 		this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 		this.fileName = "root";
@@ -41,6 +43,8 @@ public class PHakgwaSelection extends JPanel {
 		this.pHakgwa = new PDirectory("ÇÐ°ú",listSelectionHandler);
 		scrollpane.setViewportView(this.pHakgwa);
 		this.add(scrollpane);
+		
+		this.cDirectory = new CDirectory();
 	}
 	
 	public void initialize() {
@@ -99,7 +103,6 @@ public class PHakgwaSelection extends JPanel {
 
 		public String getData(String fileName) {
 			this.getSelectionModel().removeListSelectionListener(this.listSelectionHandler);
-			CDirectory cDirectory = new CDirectory();
 			this.vDirectories = cDirectory.getData(fileName);
 			this.tableModel.setRowCount(0);
 			for (VDirectory vDirectory: this.vDirectories) {

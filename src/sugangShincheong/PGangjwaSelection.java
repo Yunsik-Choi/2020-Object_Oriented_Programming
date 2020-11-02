@@ -13,7 +13,7 @@ public class PGangjwaSelection extends JTable {
 	
 	private DefaultTableModel tableModel;
 	private Vector<VGangjwa> vGangjwas;
-	
+	private CGangjwa cGangjwa;
 	public PGangjwaSelection() {
 		//data model
 		Vector<String> header = new Vector<String>();
@@ -25,6 +25,8 @@ public class PGangjwaSelection extends JTable {
 
 		this.tableModel = new DefaultTableModel(header,0);
 		this.setModel(tableModel);
+		
+		this.cGangjwa = new CGangjwa();
 	}
 	
 	public void initialize(String fileName) {
@@ -45,7 +47,6 @@ public class PGangjwaSelection extends JTable {
 	
 	
 	public Vector<VGangjwa> getData(String fileName) {
-		CGangjwa cGangjwa = new CGangjwa();
 		Vector<VGangjwa> newGangjwas = cGangjwa.getData(fileName);
 		return newGangjwas;	
 	}
