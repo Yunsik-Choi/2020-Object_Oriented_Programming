@@ -30,28 +30,22 @@ public class PSelection extends JPanel {
 		this.add(scrollPane);
 	}
 	
-	public void initialize() {
+	public void initialize(Vector<VGangjwa> miridamgiGangjwas, Vector<VGangjwa> shincehongGangjwas) {
 		this.pHakgwaSelection.initialize();
 		String fileName = this.pHakgwaSelection.getFileName();
-		this.pGangjwaSelection.initialize(fileName);
-	}
-	public PHakgwaSelection getHakgwaSelection() {
-		return this.pHakgwaSelection;
-	}
-	public PGangjwaSelection getGangjwaSelection() {
-		return this.pGangjwaSelection;
+		this.pGangjwaSelection.initialize(fileName,miridamgiGangjwas,shincehongGangjwas);
 	}
 	
+	public void updateGangjwas(Object source, Vector<VGangjwa> miridamgiGangjwas, Vector<VGangjwa> sincehongGangjwas) {
+		String hakgwafileName = this.pHakgwaSelection.update(source);
+		this.pGangjwaSelection.update(hakgwafileName,miridamgiGangjwas,sincehongGangjwas);
+	}	
 
 	public Vector<VGangjwa> getSelectedGangjwas() {
 		return pGangjwaSelection.getSelectedGangjwas();
 	}
 
-	public Vector<VGangjwa> getGangjwas() {
+	private Vector<VGangjwa> getGangjwas() {
 		return this.pGangjwaSelection.getGangjwas();
 	}
-
-
-
-
 }

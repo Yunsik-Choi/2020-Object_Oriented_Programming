@@ -9,6 +9,7 @@ import javax.swing.JScrollPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import constants.Constants.EConfiguration;
 import valueObject.VGangjwa;
 import valueObject.VUser;
 
@@ -16,19 +17,23 @@ public class PContentPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 
 	private VUser vUser;
+	
+	private ListSelectionListener listSelectionHandler;
 	private PSelection pSelection;
-	private PMove pMove1;
+	
 	private PResult pMiridamgi;
-	private PMove pMove2;
 	private PResult pShincheong;
 	
 	private ActionListener ActionHandler;
+	private PMove pMove1;
+	private PMove pMove2;
+	
 	public PContentPanel() {
 		this.setLayout(new BoxLayout(this,BoxLayout.X_AXIS));
 		this.ActionHandler = new ActionHandler();
 		
-		ListSelectionListener listSelectionHandler = new ListSelectionHandler();
-		this.pSelection = new PSelection(listSelectionHandler);
+		this.listSelectionHandler = new ListSelectionHandler();
+		this.pSelection = new PSelection(this.listSelectionHandler);
 		this.add(this.pSelection);
 		
 		this.pMove1 = new PMove(this.ActionHandler);
@@ -48,31 +53,25 @@ public class PContentPanel extends JPanel {
 
 	public void initialize(VUser vUser) {
 		this.vUser = vUser;
-		this.pSelection.initialize();
+
 		this.pMove1.initialize();
-		this.pMiridamgi.initialize(vUser.getUserId()+"M");
 		this.pMove2.initialize();
-		this.pShincheong.initialize(vUser.getUserId()+"S");
 		
-		Vector<VGangjwa> vGangjwas = this.pSelection.getGangjwas();
-		vGangjwas = this.pMiridamgi.removeDuplicated(vGangjwas);
-		vGangjwas = this.pShincheong.removeDuplicated(vGangjwas);
-		this.pSelection.getGangjwaSelection().updateTableContents(vGangjwas);
+		this.pMiridamgi.initialize(vUser.getUserId()+EConfiguration.miridamgiFilePostfix.getText());
+		this.pShincheong.initialize(vUser.getUserId()+EConfiguration.sincheongFilePostfix.getText());
+		
+		this.pSelection.initialize(this.pMiridamgi.getGangjwas(),this.pShincheong.getGangjwas());
 	}
 	
 	public void save() {
-		this.pMiridamgi.save(vUser.getUserId()+"M");
-		this.pShincheong.save(vUser.getUserId()+"S");
+		this.pMiridamgi.save(vUser.getUserId()+EConfiguration.miridamgiFilePostfix.getText());
+		this.pShincheong.save(vUser.getUserId()+EConfiguration.sincheongFilePostfix.getText());
 	}
 	////////////////////////////////////
 	//table event handling
-	/////////////////////
+	////////////////////////////////////
 	private void updateGangjwas(Object source) {
-		String fileName = this.pSelection.getHakgwaSelection().update(source);
-		Vector<VGangjwa> vGangjwas = this.pSelection.getGangjwaSelection().getData(fileName);
-		vGangjwas = this.pMiridamgi.removeDuplicated(vGangjwas);
-		vGangjwas = this.pShincheong.removeDuplicated(vGangjwas);
-		this.pSelection.getGangjwaSelection().updateTableContents(vGangjwas);
+		this.pSelection.updateGangjwas(source, this.pMiridamgi.getGangjwas(), this.pShincheong.getGangjwas());
 	}
 	
 	public class ListSelectionHandler implements ListSelectionListener{

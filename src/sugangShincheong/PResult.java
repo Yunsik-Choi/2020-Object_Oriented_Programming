@@ -30,6 +30,11 @@ public class PResult extends JTable {
 		this.vGangjwas = cResult.get(fileName);
 		this.updateTableData();
 	}
+	
+	public Vector<VGangjwa> getGangjwas() {
+		return this.vGangjwas;
+	}
+	
 	public void save(String fileName) {
 		CResult cResult = new CResult();
 		cResult.save(fileName,this.vGangjwas);
@@ -75,8 +80,4 @@ public class PResult extends JTable {
 		this.updateTableData();
 		return vRemovedGangjwas;
 	}
-
-
-
-
 }

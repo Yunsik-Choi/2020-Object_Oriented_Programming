@@ -10,35 +10,38 @@ import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
+import constants.Constants.EConfiguration;
+import constants.Constants.EDirectory;
 import control.CDirectory;
 import valueObject.VDirectory;
 
 public class PHakgwaSelection extends JPanel {
 	private static final long serialVersionUID = 1L;
-
-	private PDirectory pCampus;
-	private PDirectory pCollege;
-	private PDirectory pHakgwa;
 	
 	private String fileName;
 	
+	private PDirectory pCampus;
+	private PDirectory pCollege;
+	private PDirectory pHakgwa;
+
 	public PHakgwaSelection(ListSelectionListener listSelectionHandler) {
+		this.fileName = EConfiguration.rootFileName.getText();
+		
 		this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
-		this.fileName = "root";
 		
 		JScrollPane scrollpane;
 		scrollpane = new JScrollPane();
-		this.pCampus = new PDirectory("캠퍼스",listSelectionHandler);
+		this.pCampus = new PDirectory(EDirectory.campus.getText(),listSelectionHandler);
 		scrollpane.setViewportView(this.pCampus);
 		this.add(scrollpane);
 		
 		scrollpane = new JScrollPane();
-		this.pCollege = new PDirectory("대학",listSelectionHandler);
+		this.pCollege = new PDirectory(EDirectory.college.getText(),listSelectionHandler);
 		scrollpane.setViewportView(this.pCollege);
 		this.add(scrollpane);
 		
 		scrollpane = new JScrollPane();
-		this.pHakgwa = new PDirectory("학과",listSelectionHandler);
+		this.pHakgwa = new PDirectory(EDirectory.hakgwa.getText(),listSelectionHandler);
 		scrollpane.setViewportView(this.pHakgwa);
 		this.add(scrollpane);
 	}
