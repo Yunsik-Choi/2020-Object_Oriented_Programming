@@ -25,8 +25,6 @@ public class PHakgwaSelection extends JPanel {
 	private PDirectory pHakgwa;
 
 	public PHakgwaSelection(ListSelectionListener listSelectionHandler) {
-		this.fileName = EConfiguration.rootFileName.getText();
-		
 		this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 		
 		JScrollPane scrollpane;
@@ -47,6 +45,7 @@ public class PHakgwaSelection extends JPanel {
 	}
 	
 	public void initialize() {
+		this.fileName = EConfiguration.rootFileName.getText();
 		this.fileName = this.pCampus.initialize(this.fileName);
 		this.fileName = this.pCollege.initialize(this.fileName);
 		this.fileName = this.pHakgwa.initialize(this.fileName);
@@ -73,9 +72,13 @@ public class PHakgwaSelection extends JPanel {
 	public class PDirectory extends JTable {
 		private static final long serialVersionUID = 1L;
 
-		private DefaultTableModel tableModel;
-		private ListSelectionListener listSelectionHandler;
+		private CDirectory cDirectory;
 		Vector<VDirectory> vDirectories;
+		
+		private DefaultTableModel tableModel;
+		
+		private ListSelectionListener listSelectionHandler;
+		
 		
 		public String initialize(String fileName) {
 			return this.getData(fileName);
@@ -102,7 +105,7 @@ public class PHakgwaSelection extends JPanel {
 
 		public String getData(String fileName) {
 			this.getSelectionModel().removeListSelectionListener(this.listSelectionHandler);
-			CDirectory cDirectory = new CDirectory();
+			this.cDirectory = new CDirectory();
 			this.vDirectories = cDirectory.getData(fileName);
 			this.tableModel.setRowCount(0);
 			for (VDirectory vDirectory: this.vDirectories) {

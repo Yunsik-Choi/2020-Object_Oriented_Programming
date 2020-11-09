@@ -12,7 +12,7 @@ import javax.swing.plaf.basic.BasicListUI.ListSelectionHandler;
 
 import valueObject.VGangjwa;
 
-public class PSelection extends JPanel {
+public class PSelection extends PGangjwaContainer {
 	private static final long serialVersionUID = 1L;
 
 	private PHakgwaSelection pHakgwaSelection;
@@ -30,22 +30,29 @@ public class PSelection extends JPanel {
 		this.add(scrollPane);
 	}
 	
-	public void initialize(Vector<VGangjwa> miridamgiGangjwas, Vector<VGangjwa> shincehongGangjwas) {
+	public void initialize(Vector<VGangjwa> miridamgiGangjwas, Vector<VGangjwa> shincheongGangjwas) {
 		this.pHakgwaSelection.initialize();
 		String fileName = this.pHakgwaSelection.getFileName();
-		this.pGangjwaSelection.initialize(fileName,miridamgiGangjwas,shincehongGangjwas);
+		this.pGangjwaSelection.initialize(fileName);
+		this.pGangjwaSelection.removeDuplicated(miridamgiGangjwas);
+		this.pGangjwaSelection.removeDuplicated(shincheongGangjwas);
 	}
 	
-	public void updateGangjwas(Object source, Vector<VGangjwa> miridamgiGangjwas, Vector<VGangjwa> sincehongGangjwas) {
+	public void updateGangjwas(Object source, Vector<VGangjwa> miridamgiGangjwas, Vector<VGangjwa> sincheongGangjwas) {
 		String hakgwafileName = this.pHakgwaSelection.update(source);
-		this.pGangjwaSelection.update(hakgwafileName,miridamgiGangjwas,sincehongGangjwas);
-	}	
-
-	public Vector<VGangjwa> getSelectedGangjwas() {
-		return pGangjwaSelection.getSelectedGangjwas();
+		this.pGangjwaSelection.removeDuplicated(miridamgiGangjwas);
+		this.pGangjwaSelection.removeDuplicated(sincheongGangjwas);
+		this.pGangjwaSelection.update(hakgwafileName);
+	}
+	
+	@Override
+	public void addGangjwas(Vector<VGangjwa> vSelectedGangjwas) {
+		this.pGangjwaSelection.addGangjwas(vSelectedGangjwas);		
+	}
+	@Override
+	public Vector<VGangjwa> removeSelectedGangjwas() {
+		return this.pGangjwaSelection.removeSelectedGangjwas();
 	}
 
-	private Vector<VGangjwa> getGangjwas() {
-		return this.pGangjwaSelection.getGangjwas();
-	}
+	
 }

@@ -123,5 +123,39 @@ public class Constants {
 			return Integer.parseInt(text);
 		}
 	}
+	
+	public enum EPGangjwaSelection{
+		gangjwaNo("강좌번호"),
+		gangjwaName("강좌명"),
+		damdangGyosu("담당교수"),
+		hakjeom("학점"),
+		time("시간");
+		
+		private String text;
+		private EPGangjwaSelection(String text) {
+			this.text = text;
+		}
+		public String getText() {
+			return this.text;
+		}
+		public int getInt() {
+			return Integer.parseInt(text);
+		}
+	}
+	public enum EPResult{
+		gangjwaNo("강좌번호"),
+		gangjwaName("강좌명");
+		
+		private String text;
+		private EPResult(String text) {
+			this.text = text;
+		}
+		public String getText() {
+			return this.text;
+		}
+		public int getInt() {
+			return Integer.parseInt(text);
+		}
+	}
 
 }

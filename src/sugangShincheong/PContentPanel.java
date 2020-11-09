@@ -74,6 +74,7 @@ public class PContentPanel extends JPanel {
 		this.pSelection.updateGangjwas(source, this.pMiridamgi.getGangjwas(), this.pShincheong.getGangjwas());
 	}
 	
+
 	public class ListSelectionHandler implements ListSelectionListener{
 		@Override
 		public void valueChanged(ListSelectionEvent event) {
@@ -85,27 +86,22 @@ public class PContentPanel extends JPanel {
 	////////////////////////////////////
 	//button event handling
 	/////////////////////
+	private void moveGangjwas(PGangjwaContainer source,PGangjwaContainer target) {
+		Vector<VGangjwa> vSelectedGangjwas = source.removeSelectedGangjwas();
+		target.addGangjwas(vSelectedGangjwas);
+	}
+	
 	private void moveGangjwas(Object source) {
-		Vector<VGangjwa> vSelectedGangjwas;
 		if(source.equals(this.pMove1.getMoveRightButton())) {
-			vSelectedGangjwas =  this.pSelection.getSelectedGangjwas();
-			vSelectedGangjwas = this.pMiridamgi.removeDuplicated(vSelectedGangjwas);
-			vSelectedGangjwas = this.pShincheong.removeDuplicated(vSelectedGangjwas);
-			this.pMiridamgi.addGangjwas(vSelectedGangjwas);
-			
-			this.updateGangjwas(source);
+			this.moveGangjwas(this.pSelection,this.pMiridamgi);
 		}
 		else if(source.equals(this.pMove1.getMoveLeftButton())) {
-			vSelectedGangjwas = this.pMiridamgi.removeGangjwa();
-			
-			this.updateGangjwas(source);
+			this.moveGangjwas(this.pMiridamgi,this.pSelection);
 		}
 		else if(source.equals(this.pMove2.getMoveRightButton())) {
-			vSelectedGangjwas =  this.pMiridamgi.removeGangjwa();
-			this.pShincheong.addGangjwas(vSelectedGangjwas);
+			this.moveGangjwas(this.pMiridamgi,this.pShincheong);
 		}else if(source.equals(this.pMove2.getMoveLeftButton())) {
-			vSelectedGangjwas = this.pShincheong.removeGangjwa();
-			this.pMiridamgi.addGangjwas(vSelectedGangjwas);
+			this.moveGangjwas(this.pShincheong,this.pMiridamgi);
 		}
 	}
 

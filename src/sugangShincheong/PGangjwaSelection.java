@@ -5,30 +5,31 @@ import java.util.Vector;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import constants.Constants.EPGangjwaSelection;
 import control.CGangjwa;
 import valueObject.VGangjwa;
 
 public class PGangjwaSelection extends JTable {
 	private static final long serialVersionUID = 1L;
-	
+	private CGangjwa cGangjwa;
 	private DefaultTableModel tableModel;
 	private Vector<VGangjwa> vGangjwas;
 	
 	public PGangjwaSelection() {
 		//data model
 		Vector<String> header = new Vector<String>();
-		header.addElement("강좌번호");
-		header.addElement("강좌명");
-		header.addElement("담당교수");
-		header.addElement("학점");
-		header.addElement("시간");
+		header.addElement(EPGangjwaSelection.gangjwaNo.getText());
+		header.addElement(EPGangjwaSelection.gangjwaName.getText());
+		header.addElement(EPGangjwaSelection.damdangGyosu.getText());
+		header.addElement(EPGangjwaSelection.hakjeom.getText());
+		header.addElement(EPGangjwaSelection.time.getText());
 
 		this.tableModel = new DefaultTableModel(header,0);
 		this.setModel(tableModel);
 	}
 	
-	public void initialize(String fileName, Vector<VGangjwa> miridamgiGangjwas, Vector<VGangjwa> sincehongGangjwas) {
-		this.update(fileName,miridamgiGangjwas, sincehongGangjwas);
+	public void initialize(String fileName) {
+		this.update(fileName);
 	}
 	public Vector<VGangjwa> getGangjwas() {
 		return this.vGangjwas;
@@ -45,11 +46,11 @@ public class PGangjwaSelection extends JTable {
 	
 	
 	private void getData(String fileName) {
-		CGangjwa cGangjwa = new CGangjwa();
-		this.vGangjwas = cGangjwa.getData(fileName);
+		this.cGangjwa = new CGangjwa();
+		this.vGangjwas = this.cGangjwa.getData(fileName);
 	}
 
-	private Vector<VGangjwa> removeDuplicated(Vector<VGangjwa> vSelectedGangjwas) {
+	public void removeDuplicated(Vector<VGangjwa> vSelectedGangjwas) {
 		for(int index=this.vGangjwas.size()-1;index>=0;index--) {
 			for(VGangjwa vGangjwa: vSelectedGangjwas) {
 				if(this.vGangjwas.get(index).getId().equals(vGangjwa.getId())){
@@ -58,7 +59,6 @@ public class PGangjwaSelection extends JTable {
 				}
 			}
 		}
-		return vSelectedGangjwas;
 	}
 	
 	private void updateTableContents() {
@@ -76,10 +76,23 @@ public class PGangjwaSelection extends JTable {
 		}
 	}
 	
-	public void update(String fileName, Vector<VGangjwa> miridamgiGangjwas, Vector<VGangjwa> sincehongGangjwas) {
+	public void update(String fileName) {
 		this.getData(fileName);
-		this.removeDuplicated(miridamgiGangjwas);
-		this.removeDuplicated(sincehongGangjwas);
+		this.updateTableContents();
+	}
+	public Vector<VGangjwa> removeSelectedGangjwas(){
+		int[] indices = this.getSelectedRows();
+		Vector<VGangjwa> vRemovedGangjwas = new Vector<VGangjwa>();
+		for(int i=indices.length-1;i>=0;i--) {
+			VGangjwa vRemoveGangjwa = this.vGangjwas.remove(indices[i]);
+			vRemovedGangjwas.add(vRemoveGangjwa);
+		}
+		this.updateTableContents();
+		return vRemovedGangjwas;
+	}
+
+	public void addGangjwas(Vector<VGangjwa> vSelectedGangjwas) {
+		this.vGangjwas.addAll(vSelectedGangjwas);
 		this.updateTableContents();
 	}
 
