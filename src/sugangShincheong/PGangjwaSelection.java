@@ -14,6 +14,7 @@ public class PGangjwaSelection extends JTable {
 	private CGangjwa cGangjwa;
 	private DefaultTableModel tableModel;
 	private Vector<VGangjwa> vGangjwas;
+	private String fileName;
 	
 	public PGangjwaSelection() {
 		//data model
@@ -49,6 +50,9 @@ public class PGangjwaSelection extends JTable {
 		this.cGangjwa = new CGangjwa();
 		this.vGangjwas = this.cGangjwa.getData(fileName);
 	}
+//	private CGangjwa getCGangjwa() {
+//		return this.cGangjwa;
+//	}
 
 	public void removeDuplicated(Vector<VGangjwa> vSelectedGangjwas) {
 		for(int index=this.vGangjwas.size()-1;index>=0;index--) {
@@ -61,7 +65,7 @@ public class PGangjwaSelection extends JTable {
 		}
 	}
 	
-	private void updateTableContents() {
+	public void updateTableContents() {
 		this.tableModel.setRowCount(0);
 		for (VGangjwa vGangjwa: this.vGangjwas) {
 			Vector<String> row = new Vector<String>();
@@ -77,6 +81,7 @@ public class PGangjwaSelection extends JTable {
 	}
 	
 	public void update(String fileName) {
+		this.fileName = fileName;
 		this.getData(fileName);
 		this.updateTableContents();
 	}
@@ -91,8 +96,17 @@ public class PGangjwaSelection extends JTable {
 		return vRemovedGangjwas;
 	}
 
-	public void addGangjwas(Vector<VGangjwa> vSelectedGangjwas) {
-		this.vGangjwas.addAll(vSelectedGangjwas);
+	public void addGangjwas(Vector<VGangjwa> vSelectedGangjwas, String hakgwafileName) {
+		Vector<VGangjwa> vTempGangjwas = new Vector<VGangjwa>();
+		Vector<VGangjwa> origin = this.cGangjwa.getData(this.fileName);
+		for(VGangjwa i: vSelectedGangjwas) {
+			for(VGangjwa l : origin) {
+				if(i.getId().equals(l.getId())) {
+					vTempGangjwas.add(i);
+				}
+			}
+		}
+		this.vGangjwas.addAll(vTempGangjwas);
 		this.updateTableContents();
 	}
 
