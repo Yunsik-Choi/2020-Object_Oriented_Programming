@@ -49,22 +49,22 @@ public class DataAcessObject {
 		}
 		return null;
 	}
-
-	public Vector<MDirectory> getDirectories(String fileName) {
-		Vector<MDirectory> mDirectories = new Vector<MDirectory>();
+	
+	public Vector<MModel> getModels(String fileName, Class<?> clazz) {
+		Vector<MModel> mModels = new Vector<MModel>();
 		try {
 			Scanner scanner = new Scanner(new File("lectureInfo/" + fileName));
 			
 			while(scanner.hasNext()) {
-				MDirectory mDirectory = new MDirectory(scanner);
-				mDirectory.read();
-				mDirectories.add(mDirectory);
+				MModel mModel = new MDirectory(scanner);
+				mModel.read();
+				mModels.add(mModel);
 			}
 			scanner.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-		return mDirectories;
+		return mModels;
 	}
 
 	public Vector<MGangjwa> getGangjwas(String fileName) {
