@@ -4,6 +4,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.Scanner;
 import java.util.Vector;
 
@@ -50,38 +53,29 @@ public class DataAcessObject {
 		return null;
 	}
 	
-	public Vector<MModel> getModels(String fileName, Class<?> clazz) {
+	public Vector<MModel> getModels(String fileName, Class<?> clazz){
 		Vector<MModel> mModels = new Vector<MModel>();
 		try {
 			Scanner scanner = new Scanner(new File("lectureInfo/" + fileName));
 			
 			while(scanner.hasNext()) {
-				MModel mModel = new MDirectory(scanner);
-				mModel.read();
-				mModels.add(mModel);
+				try {
+					Constructor constructor = clazz.getConstructor(Scanner.class);
+					MModel mModel = (MModel) constructor.newInstance(scanner);
+					Method method =  clazz.getDeclaredMethod("read");
+					method.invoke(mModel);
+					mModels.add(mModel);
+					
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 			scanner.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
 		return mModels;
-	}
-
-	public Vector<MGangjwa> getGangjwas(String fileName) {
-		Vector<MGangjwa> mGangjwas = new Vector<MGangjwa>();
-		try {
-			Scanner scanner = new Scanner(new File("lectureInfo/" + fileName));
-			
-			while(scanner.hasNext()) {
-				MGangjwa mGangjwa = new MGangjwa(scanner);
-				mGangjwa.read();
-				mGangjwas.add(mGangjwa);
-			}
-			scanner.close();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-		return mGangjwas;
 	}
 
 	public void saveResult(String fileName, Vector<VGangjwa> vGangjwas) {

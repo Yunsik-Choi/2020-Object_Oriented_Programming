@@ -30,4 +30,9 @@ public class MDirectory extends MModel{
 	public String getFileName() {
 		return fileName;
 	}
+	
+	public void setScanner(Scanner scanner) {
+		// TODO Auto-generated method stub
+		this.scanner = scanner;
+	}
 }
