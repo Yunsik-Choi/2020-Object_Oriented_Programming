@@ -30,24 +30,21 @@ public class PSelection extends PGangjwaContainer {
 		this.add(scrollPane);
 	}
 	
-	public void initialize(Vector<VGangjwa> miridamgiGangjwas, Vector<VGangjwa> shincheongGangjwas) {
+	public void initialize(PResult pMiridamgi, PResult pSincheong) {
 		this.pHakgwaSelection.initialize();
 		String fileName = this.pHakgwaSelection.getFileName();
-		this.pGangjwaSelection.initialize(fileName);
-		this.pGangjwaSelection.removeDuplicated(miridamgiGangjwas);
-		this.pGangjwaSelection.removeDuplicated(shincheongGangjwas);
+		this.pGangjwaSelection.initialize(fileName, pMiridamgi, pSincheong);
 	}
 	
-	public void updateGangjwas(Object source, Vector<VGangjwa> miridamgiGangjwas, Vector<VGangjwa> sincheongGangjwas) {
+	public void updateGangjwas(Object source) {
 		String hakgwafileName = this.pHakgwaSelection.update(source);
-		this.pGangjwaSelection.removeDuplicated(miridamgiGangjwas);
-		this.pGangjwaSelection.removeDuplicated(sincheongGangjwas);
 		this.pGangjwaSelection.update(hakgwafileName);
 	}
 	
 	@Override
 	public void addGangjwas(Vector<VGangjwa> vSelectedGangjwas) {
-		this.pGangjwaSelection.addGangjwas(vSelectedGangjwas);		
+		String fileName = this.pHakgwaSelection.getFileName();
+		this.pGangjwaSelection.update(fileName);		
 	}
 	@Override
 	public Vector<VGangjwa> removeSelectedGangjwas() {

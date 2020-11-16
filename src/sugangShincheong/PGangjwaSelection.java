@@ -15,35 +15,24 @@ public class PGangjwaSelection extends JTable {
 	private DefaultTableModel tableModel;
 	private Vector<VGangjwa> vGangjwas;
 	
+	private PResult pMridamgi;
+	private PResult pSincheong;
+	
 	public PGangjwaSelection() {
 		//data model
 		Vector<String> header = new Vector<String>();
-		header.addElement(EPGangjwaSelection.gangjwaNo.getText());
-		header.addElement(EPGangjwaSelection.gangjwaName.getText());
-		header.addElement(EPGangjwaSelection.damdangGyosu.getText());
-		header.addElement(EPGangjwaSelection.hakjeom.getText());
-		header.addElement(EPGangjwaSelection.time.getText());
+		for(EPGangjwaSelection ePGangjwaSelection: EPGangjwaSelection.values()) {
+			header.addElement(ePGangjwaSelection.getText());
+		}
 
 		this.tableModel = new DefaultTableModel(header,0);
 		this.setModel(tableModel);
 	}
 	
-	public void initialize(String fileName) {
-		this.update(fileName);
+	public void initialize(String fileName, PResult pMiridamgi, PResult pSincheong) {
+		this.pMridamgi = pMiridamgi;
+		this.pSincheong = pSincheong;
 	}
-	public Vector<VGangjwa> getGangjwas() {
-		return this.vGangjwas;
-	}
-	
-	public Vector<VGangjwa> getSelectedGangjwas() {
-		Vector<VGangjwa> vSelectedGangjwas = new Vector<VGangjwa>();
-		int[] indices = this.getSelectedRows();
-		for(int index:indices) {
-			vSelectedGangjwas.add(this.vGangjwas.get(index));
-		}
-		return vSelectedGangjwas;
-	}
-	
 	
 	private void getData(String fileName) {
 		this.cGangjwa = new CGangjwa();
@@ -69,6 +58,7 @@ public class PGangjwaSelection extends JTable {
 			row.add(vGangjwa.getName());
 			row.add(vGangjwa.getLecturer());
 			row.add(vGangjwa.getCredit());
+			row.add(vGangjwa.getTime());
 			this.tableModel.addRow(row);
 		}
 		if(this.vGangjwas.size()>0) {
@@ -77,7 +67,11 @@ public class PGangjwaSelection extends JTable {
 	}
 	
 	public void update(String fileName) {
-		this.getData(fileName);
+		this.cGangjwa = new CGangjwa();
+		this.vGangjwas = this.cGangjwa.getData(fileName);
+		
+		this.removeDuplicated(this.pMridamgi.getGangjwas());
+		this.removeDuplicated(this.pSincheong.getGangjwas());
 		this.updateTableContents();
 	}
 	public Vector<VGangjwa> removeSelectedGangjwas(){

@@ -2,6 +2,8 @@ package sugangShincheong;
 
 import java.util.Vector;
 
+import javax.swing.BoxLayout;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -17,11 +19,18 @@ public class PResult extends PGangjwaContainer {
 	private Vector<VGangjwa> vGangjwas;
 	
 	public PResult() {
+		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		this.table = new JTable();
-		this.add(this.table);
+		
+		JScrollPane scrollpane = new JScrollPane();
+		scrollpane.setViewportView(this.table);
+		this.add(scrollpane);
+		
+		//data model
 		Vector<String> header = new Vector<String>();
-		header.addElement(EPResult.gangjwaNo.getText());
-		header.addElement(EPResult.gangjwaName.getText());
+		for(EPResult ePResult: EPResult.values()) {
+			header.addElement(ePResult.getText());
+		}
 		
 		this.tableModel = new DefaultTableModel(header,0);
 		this.table.setModel(this.tableModel);

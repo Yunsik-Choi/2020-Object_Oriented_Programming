@@ -22,7 +22,7 @@ public class PContentPanel extends JPanel {
 	private PSelection pSelection;
 	
 	private PResult pMiridamgi;
-	private PResult pShincheong;
+	private PResult pSincheong;
 	
 	private ActionListener ActionHandler;
 	private PMove pMove1;
@@ -40,15 +40,13 @@ public class PContentPanel extends JPanel {
 		this.add(this.pMove1);
 		
 		this.pMiridamgi = new PResult();
-		JScrollPane scrollPane = new JScrollPane(this.pMiridamgi);
-		this.add(scrollPane);
+		this.add(pMiridamgi);
 		
 		this.pMove2 = new PMove(this.ActionHandler);
 		this.add(this.pMove2);
 		
-		this.pShincheong = new PResult();
-		scrollPane = new JScrollPane(this.pShincheong);
-		this.add(scrollPane);
+		this.pSincheong = new PResult();
+		this.add(pSincheong);
 	}
 
 	public void initialize(VUser vUser) {
@@ -58,20 +56,20 @@ public class PContentPanel extends JPanel {
 		this.pMove2.initialize();
 		
 		this.pMiridamgi.initialize(vUser.getUserId()+EConfiguration.miridamgiFilePostfix.getText());
-		this.pShincheong.initialize(vUser.getUserId()+EConfiguration.sincheongFilePostfix.getText());
+		this.pSincheong.initialize(vUser.getUserId()+EConfiguration.sincheongFilePostfix.getText());
 		
-		this.pSelection.initialize(this.pMiridamgi.getGangjwas(),this.pShincheong.getGangjwas());
+		this.pSelection.initialize(this.pMiridamgi,this.pSincheong);
 	}
 	
 	public void save() {
 		this.pMiridamgi.save(vUser.getUserId()+EConfiguration.miridamgiFilePostfix.getText());
-		this.pShincheong.save(vUser.getUserId()+EConfiguration.sincheongFilePostfix.getText());
+		this.pSincheong.save(vUser.getUserId()+EConfiguration.sincheongFilePostfix.getText());
 	}
 	////////////////////////////////////
 	//table event handling
 	////////////////////////////////////
 	private void updateGangjwas(Object source) {
-		this.pSelection.updateGangjwas(source, this.pMiridamgi.getGangjwas(), this.pShincheong.getGangjwas());
+		this.pSelection.updateGangjwas(source);
 	}
 	
 
@@ -99,9 +97,9 @@ public class PContentPanel extends JPanel {
 			this.moveGangjwas(this.pMiridamgi,this.pSelection);
 		}
 		else if(source.equals(this.pMove2.getMoveRightButton())) {
-			this.moveGangjwas(this.pMiridamgi,this.pShincheong);
+			this.moveGangjwas(this.pMiridamgi,this.pSincheong);
 		}else if(source.equals(this.pMove2.getMoveLeftButton())) {
-			this.moveGangjwas(this.pShincheong,this.pMiridamgi);
+			this.moveGangjwas(this.pSincheong,this.pMiridamgi);
 		}
 	}
 
