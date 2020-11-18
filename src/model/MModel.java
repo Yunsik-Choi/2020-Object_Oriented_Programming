@@ -1,7 +1,5 @@
 package model;
 
-import java.util.Scanner;
-
 public class MModel {
 
 	public MModel() {

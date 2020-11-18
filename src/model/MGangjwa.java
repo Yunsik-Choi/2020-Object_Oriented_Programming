@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 import valueObject.VGangjwa;
 
-public class MGangjwa extends MModel{
+public class MGangjwa {
 	private Scanner scanner;
 	private FileWriter fileWriter;
 	private String id;
