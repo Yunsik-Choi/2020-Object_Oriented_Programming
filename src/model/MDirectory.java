@@ -13,10 +13,11 @@ public class MDirectory extends MModel{
 		this.scanner = scanner;
 	}
 
-	public void read() {
+	public String read() {
 		this.id = scanner.next();
 		this.name = scanner.next();
 		this.fileName = scanner.next();
+		return this.id;
 	}
 	
 	public String getId() {

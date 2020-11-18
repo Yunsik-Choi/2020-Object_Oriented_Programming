@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 import valueObject.VGangjwa;
 
-public class MGangjwa {
+public class MGangjwa extends MModel{
 	private Scanner scanner;
 	private FileWriter fileWriter;
 	private String id;
@@ -29,12 +29,13 @@ public class MGangjwa {
 		this.time = vGangjwa.getTime();
 	}
 
-	public void read() {
+	public String read() {
 		this.id = scanner.next();
 		this.name = scanner.next();
 		this.lecturer = scanner.next();
 		this.credit = scanner.next();
 		this.time = scanner.next();
+		return this.id;
 	}
 	
 	public void save() {

@@ -5,8 +5,8 @@ public class MModel {
 	public MModel() {
 	}
 
-	public void read() {
-		// TODO Auto-generated method stub
+	public String read() {
+		return null;
 		
 	}
 

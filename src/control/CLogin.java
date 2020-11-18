@@ -2,6 +2,7 @@ package control;
 
 import model.DataAcessObject;
 import model.MLogin;
+import model.MModel;
 import valueObject.VLogin;
 
 public class CLogin {
@@ -9,11 +10,11 @@ public class CLogin {
 	public boolean validate(VLogin vLogin) {
 		boolean bLoginSuccess = false;
 		DataAcessObject dataAcessObject = new DataAcessObject();
-		MLogin mLogin = dataAcessObject.getLogin(vLogin.getUserId());
-		if(mLogin != null) {
+		MModel mModel = dataAcessObject.getAModel("userid",MLogin.class,vLogin.getUserId());
+		if(mModel != null) {
+			MLogin mLogin = (MLogin) mModel;
 			if(vLogin.getPassword().contentEquals(mLogin.getPassword())) {
 				bLoginSuccess = true;
-				return bLoginSuccess;
 			}
 			else {
 				//password mismatch
@@ -22,6 +23,6 @@ public class CLogin {
 		else {
 			//no Userid
 		}
-		return false;
+		return bLoginSuccess;
 	}
 }

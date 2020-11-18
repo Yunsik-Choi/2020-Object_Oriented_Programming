@@ -32,11 +32,7 @@ public class PGangjwaSelection extends JTable {
 	public void initialize(String fileName, PResult pMiridamgi, PResult pSincheong) {
 		this.pMridamgi = pMiridamgi;
 		this.pSincheong = pSincheong;
-	}
-	
-	private void getData(String fileName) {
-		this.cGangjwa = new CGangjwa();
-		this.vGangjwas = this.cGangjwa.getData(fileName);
+		update(fileName);
 	}
 
 	public void removeDuplicated(Vector<VGangjwa> vSelectedGangjwas) {
