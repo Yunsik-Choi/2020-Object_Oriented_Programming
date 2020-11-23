@@ -18,11 +18,11 @@ public class DataAcessObject {
 		try {
 			Scanner scanner = new Scanner(new File("userInfo/"+fileName));
 			
-			Constructor<?> constructor = clazz.getConstructor(Scanner.class);
-			MModel mModel = (MModel) constructor.newInstance(scanner);
+			Constructor<?> constructor = clazz.getConstructor();
+			MModel mModel = (MModel) constructor.newInstance();
 
 			while(scanner.hasNext()) {
-				String mModelKey = mModel.read();
+				String mModelKey = mModel.read(scanner);
 				if(mModelKey.contentEquals(key)) {
 					scanner.close();
 					return mModel;
@@ -39,11 +39,10 @@ public class DataAcessObject {
 		Vector<MModel> mModels = new Vector<MModel>();
 		try {
 			Scanner scanner = new Scanner(new File("lectureInfo/" + fileName));
-			
 			while(scanner.hasNext()) {
-				Constructor<?> constructor = clazz.getConstructor(Scanner.class);
-				MModel mModel = (MModel) constructor.newInstance(scanner);
-				mModel.read();
+				Constructor<?> constructor = clazz.getConstructor();
+				MModel mModel = (MModel) constructor.newInstance();
+				mModel.read(scanner);
 				mModels.add(mModel);
 			}
 			scanner.close();
@@ -55,12 +54,11 @@ public class DataAcessObject {
 	}
 
 
-	public void saveResult(String fileName, Vector<VGangjwa> vGangjwas) {
+	public void save(String fileName, Vector<MModel> mModels) {
 		try {
 			FileWriter fileWriter = new FileWriter(new File("lectureInfo/"+fileName));
-			for(VGangjwa vGangjwa: vGangjwas) {
-				MGangjwa mGangjwa = new MGangjwa(fileWriter,vGangjwa);
-				mGangjwa.save();
+			for(MModel mModel: mModels) {
+				mModel.save(fileWriter);
 			}
 			fileWriter.close();
 		} catch (IOException e) {

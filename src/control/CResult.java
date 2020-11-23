@@ -13,8 +13,19 @@ public class CResult {
 		
 	}
 	public void save(String fileName, Vector<VGangjwa> vGangjwas) {
+		Vector<MModel> mGangjwas = new Vector<MModel>();
+		for(VGangjwa vGangjwa : vGangjwas) {
+			MGangjwa mGangjwa = new MGangjwa();
+			mGangjwa.setId(vGangjwa.getId());
+			mGangjwa.setName(vGangjwa.getName());
+			mGangjwa.setLecturer(vGangjwa.getLecturer());
+			mGangjwa.setCredit(vGangjwa.getCredit());
+			mGangjwa.setTime(vGangjwa.getTime());
+			
+			mGangjwas.add(mGangjwa);
+		}
 		DataAcessObject dataAccessObject = new DataAcessObject();
-		dataAccessObject.saveResult(fileName,vGangjwas);
+		dataAccessObject.save(fileName,mGangjwas);
 	}
 	public Vector<VGangjwa> get(String fileName) {
 		DataAcessObject dataAccessObject = new DataAcessObject();

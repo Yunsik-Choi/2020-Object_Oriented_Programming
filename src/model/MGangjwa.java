@@ -7,71 +7,68 @@ import java.util.Scanner;
 import valueObject.VGangjwa;
 
 public class MGangjwa extends MModel{
-	private Scanner scanner;
-	private FileWriter fileWriter;
+	
 	private String id;
 	private String name;
 	private String lecturer;
 	private String credit;
 	private String time;
 	
-	public MGangjwa(Scanner scanner) {
-		this.scanner = scanner;
-	}
-
-	public MGangjwa(FileWriter fileWriter, VGangjwa vGangjwa) {
-		this.fileWriter = fileWriter;
-		
-		this.id = vGangjwa.getId();
-		this.name = vGangjwa.getName();
-		this.lecturer = vGangjwa.getLecturer();
-		this.credit = vGangjwa.getCredit();
-		this.time = vGangjwa.getTime();
-	}
-
-	public String read() {
-		this.id = scanner.next();
-		this.name = scanner.next();
-		this.lecturer = scanner.next();
-		this.credit = scanner.next();
-		this.time = scanner.next();
-		return this.id;
-	}
-	
-	public void save() {
-		try {
-			this.fileWriter.write(this.id+" ");
-			this.fileWriter.write(this.name+" ");
-			this.fileWriter.write(this.lecturer+" ");
-			this.fileWriter.write(this.credit+" ");
-			this.fileWriter.write(this.time+"\n");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
+	public MGangjwa() {
 	}
 
 	public String getId() {
 		return id;
 	}
 
+	public void setId(String id) {
+		this.id = id;
+	}
+
 	public String getName() {
 		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getLecturer() {
 		return lecturer;
 	}
 
+	public void setLecturer(String lecturer) {
+		this.lecturer = lecturer;
+	}
+
 	public String getCredit() {
 		return credit;
+	}
+
+	public void setCredit(String credit) {
+		this.credit = credit;
 	}
 
 	public String getTime() {
 		return time;
 	}
 
+	public void setTime(String time) {
+		this.time = time;
+	}
 
+	public void save(FileWriter fileWriter) {
+		try {
+			fileWriter.write(this.id+" ");
+			fileWriter.write(this.name+" ");
+			fileWriter.write(this.lecturer+" ");
+			fileWriter.write(this.credit+" ");
+			fileWriter.write(this.time+"\n");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
 
 }
